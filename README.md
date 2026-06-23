@@ -63,7 +63,7 @@ Un tablero con una sola pregunta: **¿qué actividades generan mayor impacto aca
 
 ## Stack
 `index.html` único (HTML + CSS + JS vanilla) + Chart.js. Sin backend. Se publica en GitHub Pages.
-Arquitectura lista para integrar fuentes oficiales: **SUNEDU**, **CONCYTEC/RENACYT**, **MEF (presupuesto)**, **QS / SCImago (SIR)**, **Scopus / Web of Science**.
+Marco principal: **ShanghaiRanking / ARWU** (100% académico: PUB, HiCi, N&S, Award/Alumni, PCP) — el ranking que más pesa. Complementos: **QS** y **THE**. Arquitectura lista para integrar fuentes oficiales: **Scopus / Web of Science**, **SUNEDU**, **CONCYTEC/RENACYT**, **MEF (presupuesto)**, **SCImago (SIR)**.
 
 ## Roadmap (resumen)
 - [x] Concepto + ISI + simulador (gemelo digital) + escenarios + "Waze institucional" — datos ilustrativos.

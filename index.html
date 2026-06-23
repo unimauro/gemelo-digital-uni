@@ -60,6 +60,7 @@
   .presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
   .presets button{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:8px 13px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.82rem;cursor:pointer;}
   .presets button:hover{border-color:var(--uni2);}
+  .presets button.act{background:var(--uni);color:#fff;border-color:transparent;}
   .budget-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px;font-size:.9rem;color:var(--muted);}
   .budget-row input[type=number]{background:var(--bg2);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:90px;font-family:inherit;font-weight:700;}
   .chartbox{position:relative;height:280px;}
@@ -76,7 +77,7 @@
     <span class="badge-uni">UNI</span>
     <h1>Gemelo Digital de la UNI — <span class="hl">Impacto por Sol Invertido</span></h1>
     <p class="lead">Un "Waze institucional": ¿qué decisiones acercan a la UNI a las mejores universidades de Latinoamérica, y cuáles solo consumen presupuesto sin generar valor académico medible?</p>
-    <div class="disclaimer">⚠️ Demostración con <b>&nbsp;datos ilustrativos</b>&nbsp;— el valor está en el modelo; se calibra con datos oficiales (SUNEDU · RENACYT · MEF · QS/SIR · Scopus)</div>
+    <div class="disclaimer">⚠️ Demostración con <b>&nbsp;datos ilustrativos</b>&nbsp;— el valor está en el modelo; se calibra con datos oficiales (ShanghaiRanking/ARWU · Scopus/WoS · SUNEDU · RENACYT · MEF)</div>
   </div>
 </header>
 
@@ -91,10 +92,18 @@
   <section>
     <div class="sec-h"><span class="ico">🧪</span><h2>Simulador — Gemelo Digital de la UNI</h2></div>
     <p class="sec-desc">Distribuye una inversión adicional entre actividades y observa el impacto proyectado en publicaciones, citaciones, docentes con PhD y posiciones de ranking. Coeficientes transparentes y ajustables (ilustrativos).</p>
+    <div class="presets">
+      <button id="m-fwd" onclick="setMode('fwd')">📈 Inversión → Impacto</button>
+      <button id="m-meta" onclick="setMode('meta')">🎯 Meta → Inversión necesaria</button>
+    </div>
     <div class="presets" id="presets"></div>
-    <div class="budget-row">
+    <div class="budget-row" id="fwdWrap">
       <span>Inversión adicional:</span> S/ <input type="number" id="budget" value="100" min="1" step="5"> millones
       &nbsp;·&nbsp; Horizonte: <input type="number" id="years" value="8" min="1" max="20" style="width:64px"> años
+    </div>
+    <div class="budget-row" id="metaWrap" style="display:none">
+      <span>🎯 Meta: subir</span> <input type="number" id="metaPos" value="15" min="1" step="1"> posiciones de ranking
+      &nbsp;·&nbsp; en <input type="number" id="metaYears" value="8" min="1" max="20" style="width:64px"> años
     </div>
     <div class="grid g2">
       <div class="card">
@@ -121,6 +130,36 @@
           <tr><td>Servicios administrativos</td><td><span class="pill p-na">Difícil de medir</span></td><td>Soporte; impacto académico indirecto</td></tr>
         </tbody>
       </table>
+    </div>
+  </section>
+
+  <!-- INDICADORES ARWU / SHANGHAI -->
+  <section>
+    <div class="sec-h"><span class="ico">📐</span><h2>Marco: ShanghaiRanking (ARWU) — el ranking que más pesa</h2></div>
+    <p class="sec-desc">El <b>Academic Ranking of World Universities (ARWU)</b> es <b>100% académico y de investigación</b>: ni siquiera mide infraestructura, reputación encuestada ni servicios. Esto confirma la tesis — para subir, la UNI debe invertir en <b>publicaciones, investigadores altamente citados, papers de alto impacto y talento doctoral</b>.</p>
+    <div class="grid g2">
+      <div class="card"><h3 style="font-size:1rem;margin-bottom:8px">Indicadores y pesos del ARWU</h3>
+        <table><thead><tr><th>Indicador</th><th>Qué mide</th><th>Peso</th></tr></thead><tbody>
+        <tr><td>PUB</td><td>Artículos indexados en SCIE/SSCI (Web of Science)</td><td><b>20%</b></td></tr>
+        <tr><td>HiCi</td><td>Investigadores Altamente Citados (Highly Cited)</td><td><b>20%</b></td></tr>
+        <tr><td>N&amp;S</td><td>Artículos en <i>Nature</i> y <i>Science</i></td><td><b>20%</b></td></tr>
+        <tr><td>Award</td><td>Personal con Premio Nobel / Medalla Fields</td><td><b>20%</b></td></tr>
+        <tr><td>Alumni</td><td>Exalumnos con Nobel / Medalla Fields</td><td><b>10%</b></td></tr>
+        <tr><td>PCP</td><td>Desempeño académico per cápita</td><td><b>10%</b></td></tr>
+        </tbody></table>
+        <p class="sec-desc" style="margin-top:8px;margin-bottom:0">Realista para la UNI a corto/mediano plazo: <b>PUB, HiCi, N&amp;S y PCP</b> (Nobel/Fields son de muy largo plazo). Vía de entrada ideal: el <b>Global Ranking of Academic Subjects (GRAS)</b> de ShanghaiRanking en <b>ingeniería</b> (minas/metalurgia, civil, etc.).</p>
+      </div>
+      <div class="card"><h3 style="font-size:1rem;margin-bottom:8px">Qué indicador ARWU mueve cada inversión</h3>
+        <table><thead><tr><th>Palanca</th><th>Indicadores ARWU que impulsa</th></tr></thead><tbody>
+        <tr><td>🎓 Becas doctorales</td><td>PUB, HiCi, PCP, (N&amp;S)</td></tr>
+        <tr><td>🌐 Convenios internacionales</td><td>N&amp;S, HiCi (coautorías), PUB</td></tr>
+        <tr><td>🔬 Fondo de investigación</td><td>PUB, N&amp;S, HiCi</td></tr>
+        <tr><td>⚗️ Laboratorios</td><td>PUB, N&amp;S</td></tr>
+        <tr><td>🏗️ Infraestructura</td><td><b>No se mide en ARWU</b> — efecto ~0</td></tr>
+        <tr><td>🗂️ Administrativo</td><td><b>No se mide en ARWU</b> — efecto ~0</td></tr>
+        </tbody></table>
+        <p class="sec-desc" style="margin-top:8px;margin-bottom:0">Complementos: <b>QS</b> (Academic Rep. 30%, Citations/Faculty 20%, Employer 15%) y <b>THE</b> (Research Quality 30%, Research Environment 29%). Todos priorizan investigación sobre ladrillos.</p>
+      </div>
     </div>
   </section>
 
@@ -168,8 +207,15 @@ function preset(name){
   LEVERS.forEach(l=>{ el('s-'+l[0]).value=z[l[0]]; });
   calc();
 }
-let rankChart=null;
+let rankChart=null, MODE='fwd';
+function setMode(m){ MODE=m;
+  el('m-fwd').classList.toggle('act', m==='fwd'); el('m-meta').classList.toggle('act', m==='meta');
+  el('fwdWrap').style.display = m==='fwd'?'flex':'none';
+  el('metaWrap').style.display = m==='meta'?'flex':'none';
+  calc();
+}
 function calc(){
+  if(MODE==='meta') return calcMeta();
   const B=Math.max(0,+el('budget').value||0), Y=Math.max(1,+el('years').value||1);
   const a={}; let T=0;
   LEVERS.forEach(l=>{ a[l[0]]=+el('s-'+l[0]).value; T+=a[l[0]]; el('v-'+l[0]).textContent=a[l[0]]+'%'; });
@@ -203,9 +249,36 @@ function calc(){
   rankChart=new Chart(el('rankChart'),{type:'line',data:{labels:yrs.map(y=>'Año '+y),datasets:[{label:'Posición en ranking',data,borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.15)',fill:true,tension:.3}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{reverse:true,title:{display:true,text:'Posición (menor = mejor)',color:'#94a0c0'},grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}}});
 }
+function leverQuality(){ const a={}; let T=0; LEVERS.forEach(l=>{a[l[0]]=+el('s-'+l[0]).value;T+=a[l[0]];el('v-'+l[0]).textContent=a[l[0]]+'%';});
+  const S=T>0?LEVERS.reduce((x,l)=>x+(a[l[0]]/T)*l[2],0):0; return {a,T,S}; }
+function calcMeta(){
+  const P=Math.max(1,+el('metaPos').value||1), Y=Math.max(1,+el('metaYears').value||1);
+  const {a,T,S}=leverQuality();
+  el('allocWarn').innerHTML = T===100 ? '<span style="color:var(--verde)">✓ estrategia = 100%</span>' : `<span style="color:var(--ambar)">Suma: ${T}% (se normaliza)</span>`;
+  const isi=Math.round(S*100);
+  const denom = Math.pow(S,1.4)*(Y/8);
+  const Breq = denom>0 ? P/denom : Infinity;
+  const viable = isFinite(Breq) && S>0;
+  const Btxt = viable ? 'S/ '+Math.round(Breq)+'M' : '∞';
+  const peryr = viable ? 'S/ '+Math.round(Breq/Y)+'M/año' : '—';
+  el('kpis').innerHTML =
+    `<div class="card stat"><div class="k">Inversión necesaria</div><div class="v" style="color:var(--gold)">${Btxt}</div><div class="d">para subir +${P} en ${Y} años</div></div>`+
+    `<div class="card stat"><div class="k">Por año</div><div class="v">${peryr}</div><div class="d">presupuesto anual</div></div>`+
+    `<div class="card stat"><div class="k">Índice de Impacto por Sol (ISI)</div><div class="v" style="color:${isi>=66?'var(--verde)':isi>=40?'var(--ambar)':'var(--rojo)'}">${isi}/100</div><div class="d">eficiencia de la estrategia</div></div>`+
+    `<div class="card stat"><div class="k">Posición objetivo</div><div class="v">#${Math.max(1,BASE.pos-P)}</div><div class="d">desde #${BASE.pos} (ilustrativo)</div></div>`;
+  el('outs').innerHTML = viable
+    ? LEVERS.filter(l=>a[l[0]]>0).map(l=>`<div class="card stat"><div class="k">${l[1]}</div><div class="v" style="font-size:1.3rem">S/ ${Math.round(Breq*a[l[0]]/T)}M</div><div class="d">${Math.round(a[l[0]]/T*100)}% · peso ${l[2]}</div></div>`).join('')
+    : `<div class="card" style="grid-column:1/-1;color:var(--ambar)">Con esta estrategia el costo es prohibitivo (baja eficiencia ARWU). Reasigna hacia <b>becas, convenios e investigación</b> para que la meta sea alcanzable.</div>`;
+  const yrs=[0,2,4,6,8].filter(y=>y<=Y); if(yrs[yrs.length-1]!==Y) yrs.push(Y);
+  const data=yrs.map(y=>Math.max(1, Math.round(BASE.pos - P*(y/Y))));
+  if(rankChart) rankChart.destroy();
+  rankChart=new Chart(el('rankChart'),{type:'line',data:{labels:yrs.map(y=>'Año '+y),datasets:[{label:'Posición',data,borderColor:'#f4b740',backgroundColor:'rgba(244,183,64,.15)',fill:true,tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{reverse:true,grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}}});
+}
 el('budget').oninput=calc; el('years').oninput=calc;
+el('metaPos').oninput=calc; el('metaYears').oninput=calc;
 el('presets').innerHTML=[['A','Escenario A · +Investigación'],['B','Escenario B · Infraestructura'],['C','Escenario C · 200 becas doctorales'],['mix','Mix equilibrado']].map(p=>`<button onclick="preset('${p[0]}')">${p[1]}</button>`).join('');
 renderLevers();
+setMode('fwd');
 preset('C'); // arranca con el escenario de mayor impacto
 </script>
 </body>
