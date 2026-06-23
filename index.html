@@ -439,7 +439,7 @@ preset('C'); // arranca con el escenario de mayor impacto
 
 /* ===== Datos reales (OpenAlex) ===== */
 function _card(k,v,d){return `<div class="card stat"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d||''}</div></div>`;}
-function _short(k){const m={uni:'UNI',sanmarcos:'San Marcos',pucp:'PUCP',cayetano:'Cayetano H.',uchile:'U. Chile',unam:'UNAM',usp:'USP'};return m[k]||k;}
+function _short(k){const m={uni:'UNI',sanmarcos:'San Marcos',pucp:'PUCP',cayetano:'Cayetano H.',uchile:'U. Chile',unam:'UNAM',usp:'USP',uba:'UBA',unal:'UNAL'};return m[k]||k;}
 function _mk(id,type,data,opts){ if(window['_c_'+id])window['_c_'+id].destroy(); window['_c_'+id]=new Chart(el(id),{type,data,options:Object.assign({responsive:true,maintainAspectRatio:false},opts)});}
 function fmtN(n){return (n==null)?'—':Number(n).toLocaleString('es-PE');}
 function renderReal(DR){
@@ -467,7 +467,7 @@ function renderReal(DR){
   _mk('pubChart','line',{labels:by.map(x=>x.year),datasets:[{label:'Publicaciones',data:by.map(x=>x.works),borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.15)',fill:true,tension:.3}]},
     {plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
   const order=['uni','sanmarcos','pucp','cayetano','unal','uba','uchile','unam','usp'].filter(k=>DR[k]);
-  _mk('cmpChart','bar',{labels:order.map(_short),datasets:[{label:'Publicaciones',data:order.map(k=>DR[k].works),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#3b82f6')}]},
+  _mk('cmpChart','bar',{labels:order.map(k=>_short(k).toUpperCase()),datasets:[{label:'Publicaciones',data:order.map(k=>DR[k].works),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#3b82f6')}]},
     {plugins:{legend:{display:false}},scales:{y:{type:'logarithmic',grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
   el('realAreas').innerHTML=(u.concepts||[]).map(c=>`<span class="pill p-medio" style="margin:3px;display:inline-block">${c.t}</span>`).join(' ')||'—';
   // brecha
@@ -491,7 +491,7 @@ function renderComp(DR){
   const ds=set.map(k=>{const m={};(DR[k].by_year||[]).forEach(x=>m[x.year]=x.works);return {label:_short(k),data:yrs.map(y=>(y in m)?m[y]:null),borderColor:col[k],backgroundColor:'transparent',tension:.3,spanGaps:true};});
   _mk('multiChart','line',{labels:yrs,datasets:ds},{plugins:{legend:{labels:{color:'#94a0c0',boxWidth:12}}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
   const order=['uni','sanmarcos','pucp','cayetano','unal','uba','uchile','unam','usp'].filter(k=>DR[k]);
-  _mk('hChart','bar',{labels:order.map(_short),datasets:[{label:'h-index',data:order.map(k=>DR[k].h_index),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#f4b740')}]},{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
+  _mk('hChart','bar',{labels:order.map(k=>_short(k).toUpperCase()),datasets:[{label:'h-index',data:order.map(k=>DR[k].h_index),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#f4b740')}]},{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
 }
 fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{window.DR=d;renderReal(d);renderComp(d);renderTabla(d);realityFill(d);renderCritico(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
 
