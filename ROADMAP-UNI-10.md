@@ -2,6 +2,7 @@
 
 **Para los próximos rectorados de la Universidad Nacional de Ingeniería.**
 Documento de orientación basado en datos reales + el marco de los rankings (ShanghaiRanking/ARWU, QS).
+Acompaña al observatorio interactivo **"Hacia el Gemelo Digital de la UNI"** (Observatorio + Simulador de impacto).
 
 > Borrador · datos reales con fuente y año; metas e inversión = estimaciones de orden de magnitud (referenciales, calibrables).
 
@@ -11,6 +12,7 @@ Documento de orientación basado en datos reales + el marco de los rankings (Sha
 - **Publicaciones:** ~4,697 históricas (OpenAlex). San Marcos ~44,113; USP-Brasil ~471,028.
 - **h-index:** 90 (la USP tiene 866).
 - **Presupuesto:** S/ 370.6M PIM 2025 (~USD 100M) — ~1–2% del gasto anual de un Harvard/MIT.
+- **Inversión en I+D:** de ese presupuesto, **solo S/ 6.7M (1.8%)** van al programa "Desarrollo de la Ciencia, Tecnología e Innovación" (MEF/SIAF). El país invierte ~0.17% del PBI en I+D (vs Chile 0.34%, Brasil 1.15%, OCDE 2.7%).
 - **Investigadores RENACYT:** ~90 (2020, CONCYTEC).
 - **Docentes:** 1,139; 44% con maestría y/o doctorado (2017, SUNEDU).
 - **QS World:** banda 951–1000 (2024); entra y sale (volátil).
@@ -72,4 +74,4 @@ Publicaciones/año · Citaciones · h-index · RENACYT · % docentes con doctora
 ## Fuentes
 OpenAlex (bibliometría) · MEF/SIAF (presupuesto, pliego 514) · QS · CONCYTEC/RENACYT · SUNEDU · ShanghaiRanking (metodología ARWU/GRAS).
 
-*Tablero interactivo: https://unimauro.github.io/gemelo-digital-uni/ · Creado por Carlos Cárdenas Fernández (unimauro).*
+*Observatorio interactivo "Hacia el Gemelo Digital de la UNI": https://unimauro.github.io/gemelo-digital-uni/ · Creado por Carlos Cárdenas Fernández (unimauro).*
