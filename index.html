@@ -44,7 +44,10 @@
   a{color:var(--gold);text-decoration:none;}
   header.top{padding:34px 0 18px;text-align:center;border-bottom:1px solid var(--line);}
   .badge-uni{display:inline-block;background:var(--uni);color:#fff;font-weight:800;padding:4px 12px;border-radius:8px;letter-spacing:1px;font-size:.8rem;}
-  header.top h1{font-size:clamp(1.7rem,4.4vw,2.7rem);font-weight:900;margin:10px 0 4px;letter-spacing:-.5px;}
+  header.top h1{font-size:clamp(2rem,5.2vw,3.2rem);font-weight:900;margin:14px 0 2px;letter-spacing:-1.2px;line-height:1.03;}
+  header.top h1 .rojo{background:linear-gradient(90deg,var(--uni),var(--uni2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  header.top .subtitle{font-size:clamp(1rem,2.6vw,1.35rem);font-weight:700;letter-spacing:.5px;margin:0 0 12px;color:var(--gold);text-transform:uppercase;}
+  .badge-uni{letter-spacing:.5px;font-size:.74rem;padding:5px 14px;border-radius:999px;}
   header.top h1 .hl{background:linear-gradient(90deg,var(--uni2),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
   header.top .lead{color:var(--muted);font-size:clamp(.95rem,2.4vw,1.12rem);max-width:760px;margin:0 auto;}
   .disclaimer{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:rgba(244,183,64,.10);border:1px solid rgba(244,183,64,.35);color:var(--gold);padding:7px 16px;border-radius:999px;font-size:.8rem;font-weight:600;}
@@ -81,6 +84,7 @@
   .alloc-warn{font-size:.78rem;margin-top:6px;}
   .waze{background:linear-gradient(135deg,rgba(193,18,31,.12),rgba(59,130,246,.08));border:1px solid rgba(193,18,31,.3);border-radius:16px;padding:20px;}
   .waze b{color:var(--gold);}
+  .box{background:linear-gradient(135deg,rgba(193,18,31,.12),rgba(244,183,64,.08));border:1px solid rgba(193,18,31,.3);border-radius:14px;padding:16px;font-size:.95rem;}
   footer{border-top:1px solid var(--line);margin-top:46px;padding:24px 0 50px;color:var(--muted2);font-size:.82rem;text-align:center;}
   /* Tema claro (día) */
   body[data-theme="light"]{--bg:#f3f5fa;--bg2:#ffffff;--card:#ffffff;--card2:#eef1f8;--line:#dfe4ee;--txt:#18202f;--muted:#5b6680;--muted2:#8a95ab;}
@@ -121,7 +125,7 @@
     .wrap{padding:0 14px;}
   }
   /* Tarjeta estado sin filtros (evaporable + colapsable) */
-  .reality{background:linear-gradient(135deg,rgba(193,18,31,.18),rgba(12,15,23,.35));border:1px solid var(--uni);border-radius:14px;margin:16px 0;overflow:hidden;}
+  .reality{background:linear-gradient(135deg,rgba(193,18,31,.15),rgba(244,183,64,.10));border:1px solid var(--uni);border-radius:14px;margin:16px 0;overflow:hidden;}
   .reality-h{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;color:var(--gold);font-size:.98rem;}
   .reality-hint{font-size:.72rem;color:var(--muted2);margin-left:auto;font-weight:600;}
   .reality-chev{color:var(--gold);font-weight:800;transition:transform .3s;}
@@ -136,6 +140,7 @@
 <nav class="nav"><div class="in">
   <span class="brand">🎓 UNI</span>
   <a class="chip" href="#ahora">📸 Datos ahora</a>
+  <a class="chip" href="#critico">🔎 Análisis</a>
   <a class="chip" href="#sim">Simulador</a>
   <a class="chip" href="#real">Datos reales</a>
   <a class="chip" href="#comp">Comparaciones</a>
@@ -150,8 +155,9 @@
 </div></nav>
 <header class="top">
   <div class="wrap">
-    <span class="badge-uni">UNI</span>
-    <h1>Gemelo Digital de la UNI — <span class="hl">Impacto por Sol Invertido</span></h1>
+    <span class="badge-uni">🎓 Gemelo Digital · UNI</span>
+    <h1>Gemelo Digital de la <span class="rojo">UNI</span></h1>
+    <p class="subtitle">Impacto académico por sol invertido</p>
     <p class="lead">Un "Waze institucional": ¿qué decisiones acercan a la UNI a las mejores universidades de Latinoamérica, y cuáles solo consumen presupuesto sin generar valor académico medible?</p>
     <div class="disclaimer">⚠️ Demostración con <b>&nbsp;datos ilustrativos</b>&nbsp;— bibliometría REAL de OpenAlex + modelo calibrable (ShanghaiRanking/ARWU · Scopus/WoS · SUNEDU · RENACYT · MEF)</div>
   </div>
@@ -168,6 +174,14 @@
     <div class="sec-h"><span class="ico">📸</span><h2>Datos de ahora — la UNI hoy (real)</h2></div>
     <p class="sec-desc">Fotografía del presente con <b>datos reales</b> (OpenAlex · MEF · QS · CONCYTEC · SUNEDU). Es el <b>punto de partida</b>; abajo, el simulador proyecta el futuro y su costo.</p>
     <div class="grid g4" id="realKpis"></div>
+  </section>
+
+  <!-- ANÁLISIS CRÍTICO -->
+  <section id="critico">
+    <div class="sec-h"><span class="ico">🔎</span><h2>Análisis crítico</h2></div>
+    <p class="sec-desc" id="criticoLead">…</p>
+    <div class="grid g4" id="criticoCards"></div>
+    <div class="box" style="margin-top:14px"><b>Conclusión:</b> invertir en <b>investigación, becas doctorales y convenios internacionales</b> —no en más infraestructura— es lo único que mueve a la UNI hacia arriba en ShanghaiRanking/ARWU y QS. Usa el <a href="#sim">simulador</a> para ver cuánto cuesta cada meta.</div>
   </section>
 
   <!-- SIMULADOR / GEMELO DIGITAL -->
@@ -479,9 +493,23 @@ function renderComp(DR){
   const order=['uni','sanmarcos','pucp','cayetano','unal','uba','uchile','unam','usp'].filter(k=>DR[k]);
   _mk('hChart','bar',{labels:order.map(_short),datasets:[{label:'h-index',data:order.map(k=>DR[k].h_index),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#f4b740')}]},{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
 }
-fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{window.DR=d;renderReal(d);renderComp(d);renderTabla(d);realityFill(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
+fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{window.DR=d;renderReal(d);renderComp(d);renderTabla(d);realityFill(d);renderCritico(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
 
 /* Tarjeta estado sin filtros */
+function renderCritico(DR){
+  const u=DR.uni||{},P=DR.presupuesto||{},r=DR.renacyt||{},dc=DR.docentes||{},sm=DR.sanmarcos||{},usp=DR.usp||{};
+  const f=n=>(n==null)?'—':Number(n).toLocaleString('es-PE');
+  const lead=document.getElementById('criticoLead');
+  if(lead) lead.innerHTML='La UNI no está rezagada por falta de edificios, sino por <b>baja producción científica</b>. Frente a sus pares y al mundo, la brecha está en <b>investigación, doctorado y talento</b> — justo lo que más pesa en los rankings.';
+  const veces = (sm.works&&u.works)?Math.round(sm.works/u.works):10;
+  const cards=[
+    ['📉','Investigación', f(u.works)+' publicaciones', 'San Marcos '+f(sm.works)+' · USP '+f(usp.works)+'. La UNI publica ~'+veces+'× menos que San Marcos.', '#ef4444'],
+    ['💰','Presupuesto', 'S/ '+(P.pim||370)+'M', '~USD 100M/año: cerca del 1–2% de lo que gasta un Harvard o un MIT. El dinero existe; el tema es a dónde va.', '#f4b740'],
+    ['🎓','Talento y doctorado', (dc.posgrado_pct||44)+'% con posgrado', 'Solo ~'+f(r.valor||90)+' investigadores RENACYT y h-index '+f(u.h_index||90)+' (líderes: 800+). El cuello de botella es el talento.', '#3b82f6']
+  ];
+  const c=document.getElementById('criticoCards');
+  if(c) c.innerHTML=cards.map(x=>'<div class="card" style="border-left:4px solid '+x[4]+'"><div style="font-size:1.5rem">'+x[0]+'</div><div class="k" style="color:var(--muted);font-weight:600;text-transform:uppercase;font-size:.74rem;letter-spacing:.4px;margin-top:4px">'+x[1]+'</div><div style="font-size:1.4rem;font-weight:900;margin:2px 0">'+x[2]+'</div><div style="font-size:.82rem;color:var(--muted2)">'+x[3]+'</div></div>').join('');
+}
 function realityFill(DR){
   const u=(DR&&DR.uni)||{}, P=(DR&&DR.presupuesto)||{}, r=(DR&&DR.renacyt)||{}, dc=(DR&&DR.docentes)||{};
   const f=n=>(n==null)?'—':Number(n).toLocaleString('es-PE');
