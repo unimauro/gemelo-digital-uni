@@ -145,6 +145,7 @@
   <span class="brand">🎓 UNI</span>
   <a class="chip" href="#ahora">📸 Datos ahora</a>
   <a class="chip" href="#critico">🔎 Análisis</a>
+  <a class="chip" href="#percapita">📐 Per cápita</a>
   <a class="chip" href="#sim">Simulador</a>
   <a class="chip" href="#real">Datos reales</a>
   <a class="chip" href="#comp">Comparaciones</a>
@@ -186,6 +187,16 @@
     <p class="sec-desc" id="criticoLead">…</p>
     <div class="grid g4" id="criticoCards"></div>
     <div class="box" style="margin-top:14px"><b>Conclusión:</b> invertir en <b>investigación, becas doctorales y convenios internacionales</b> —no en más infraestructura— es lo único que mueve a la UNI hacia arriba en ShanghaiRanking/ARWU y QS. Usa el <a href="#sim">simulador</a> para ver cuánto cuesta cada meta.</div>
+  </section>
+
+  <!-- PER CAPITA E I+D -->
+  <section id="percapita">
+    <div class="sec-h"><span class="ico">📐</span><h2>Per cápita e inversión en I+D (real)</h2></div>
+    <p class="sec-desc">Ratios de eficiencia y cuánto invierte realmente la UNI en ciencia. Fuente: OpenAlex + MEF/SIAF.</p>
+    <div class="grid g4" id="pcCards"></div>
+    <div class="card" style="margin-top:14px"><h3 style="font-size:1rem;margin-bottom:2px">Gasto en I+D (% del PBI) — contexto regional</h3>
+      <div style="font-size:.78rem;color:var(--muted2);margin-bottom:8px">Perú es de los más bajos de la región. Fuente: UNESCO/Banco Mundial (~2021, referencial).</div>
+      <div class="chartbox" style="height:230px"><canvas id="idiChart"></canvas></div></div>
   </section>
 
   <!-- SIMULADOR / GEMELO DIGITAL -->
@@ -502,9 +513,24 @@ function renderComp(DR){
   const order=['uni','sanmarcos','pucp','cayetano','unal','uba','uchile','unam','usp'].filter(k=>DR[k]);
   _mk('hChart','bar',{labels:order.map(k=>_short(k).toUpperCase()),datasets:[{label:'h-index',data:order.map(k=>DR[k].h_index),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#f4b740')}]},{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
 }
-fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{window.DR=d;renderReal(d);renderComp(d);renderTabla(d);realityFill(d);renderCritico(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
+fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{window.DR=d;renderReal(d);renderComp(d);renderTabla(d);realityFill(d);renderCritico(d);renderPercapita(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
 
 /* Tarjeta estado sin filtros */
+function renderPercapita(DR){
+  const u=DR.uni||{},P=DR.presupuesto||{},dc=DR.docentes||{},r=DR.renacyt||{};
+  const docs=dc.total||1139, ren=r.valor||90, pim=P.pim||370.6;
+  const cards=[
+    ['Publicaciones / docente',(u.works/docs).toFixed(1),'histórico ('+u.works.toLocaleString('es-PE')+' / '+docs+')','#3b82f6'],
+    ['Publicaciones / investigador RENACYT',Math.round(u.works/ren),'fuerte concentración en ~'+ren+' investigadores','#a855f7'],
+    ['Citaciones / publicación',(u.cited/u.works).toFixed(1),'impacto promedio por trabajo','#22c55e'],
+    ['Presupuesto / docente','S/ '+Math.round(pim*1e6/docs/1000)+'k','S/ '+pim+'M / '+docs+' docentes','#f4b740'],
+    ['Inversión en CTI / I+D','S/ '+(P.idi||6.7)+'M','solo '+(P.idi_pct||1.8)+'% del presupuesto (MEF · prog. CTI)','#ef4444']
+  ];
+  const c=document.getElementById('pcCards');
+  if(c) c.innerHTML=cards.map(x=>'<div class="card" style="border-left:4px solid '+x[3]+'"><div class="k" style="color:var(--muted);font-weight:600;text-transform:uppercase;font-size:.72rem;letter-spacing:.4px">'+x[0]+'</div><div style="font-size:1.7rem;font-weight:900;margin:2px 0">'+x[1]+'</div><div style="font-size:.8rem;color:var(--muted2)">'+x[2]+'</div></div>').join('');
+  if(window._c_idiChart) window._c_idiChart.destroy();
+  window._c_idiChart=new Chart(el('idiChart'),{type:'bar',data:{labels:['Perú','México','Chile','Brasil','OCDE'],datasets:[{label:'I+D (% del PBI)',data:[0.17,0.30,0.34,1.15,2.70],backgroundColor:['#ef4444','#94a0c0','#94a0c0','#94a0c0','#22c55e']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}}});
+}
 function renderCritico(DR){
   const u=DR.uni||{},P=DR.presupuesto||{},r=DR.renacyt||{},dc=DR.docentes||{},sm=DR.sanmarcos||{},usp=DR.usp||{};
   const f=n=>(n==null)?'—':Number(n).toLocaleString('es-PE');
@@ -513,7 +539,7 @@ function renderCritico(DR){
   const veces = (sm.works&&u.works)?Math.round(sm.works/u.works):10;
   const cards=[
     ['📉','Investigación', f(u.works)+' publicaciones', 'San Marcos '+f(sm.works)+' · USP '+f(usp.works)+'. La UNI publica ~'+veces+'× menos que San Marcos.', '#ef4444'],
-    ['💰','Presupuesto', 'S/ '+(P.pim||370)+'M', '~USD 100M/año: cerca del 1–2% de lo que gasta un Harvard o un MIT. El dinero existe; el tema es a dónde va.', '#f4b740'],
+    ['💰','Presupuesto', 'S/ '+(P.pim||370)+'M', 'De S/ '+(P.pim||370)+'M, solo <b>S/ '+(P.idi||6.7)+'M ('+(P.idi_pct||1.8)+'%)</b> va a ciencia y tecnología. El dinero existe; el problema es a dónde va.', '#f4b740'],
     ['🎓','Talento y doctorado', (dc.posgrado_pct||44)+'% con posgrado', 'Solo ~'+f(r.valor||90)+' investigadores RENACYT y h-index '+f(u.h_index||90)+' (líderes: 800+). El cuello de botella es el talento.', '#3b82f6']
   ];
   const c=document.getElementById('criticoCards');
