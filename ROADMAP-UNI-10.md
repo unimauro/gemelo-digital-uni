@@ -1,7 +1,7 @@
-# 🎓 Hoja de Ruta UNI 2026–2036 — Cómo subir de verdad en los rankings
+# 🎓 Hoja de Ruta UNI 2026–2046 — Cómo subir de verdad en los rankings
 
 **Para los próximos rectorados de la Universidad Nacional de Ingeniería.**
-Documento de orientación basado en datos reales + el marco de los rankings (ShanghaiRanking/ARWU, QS).
+Documento de orientación a 20 años (2026–2046) basado en datos reales + el marco de los rankings (ShanghaiRanking/ARWU, QS).
 Acompaña al observatorio interactivo **"Hacia el Gemelo Digital de la UNI"** (Observatorio + Simulador de impacto).
 
 > Borrador · datos reales con fuente y año; metas e inversión = estimaciones de orden de magnitud (referenciales, calibrables).
@@ -18,6 +18,17 @@ Acompaña al observatorio interactivo **"Hacia el Gemelo Digital de la UNI"** (O
 - **QS World:** banda 951–1000 (2024); entra y sale (volátil).
 
 **La brecha NO es de infraestructura: es de investigación, doctorado y talento.** El ShanghaiRanking ni siquiera mide edificios. Sin inversión sostenida en ciencia, ningún edificio nuevo sube a la UNI.
+
+---
+
+## 🎯 La meta a 20 años (2046)
+
+Una generación, dos metas **exigentes pero defendibles** —no "top 5 mundial general", que ni la USP ni la UNAM logran pese a presupuestos de miles de millones:
+
+1. **Top 1 de Latinoamérica en ingeniería** — liderazgo regional en producción e impacto (referencia: GRAS Engineering + bibliometría).
+2. **Top 5 mundial en una materia de ingeniería** (ShanghaiRanking GRAS por materia). Apuesta más fuerte: **Minería y Metalurgia**, donde la UNI tiene tradición y el Perú ventaja real.
+
+**Qué implica (orden de magnitud, referencial):** publicaciones anuales **×8–10**, RENACYT de ~90 a **800+**, mayoría de la plana docente con doctorado, e inversión en I+D de **1.8% → 8–10%** del presupuesto (de S/ 6.7M a **~S/ 40–60M/año** sostenidos, creciendo). Es una **política de Estado de 20 años (≈4 rectorados)**, no un eslogan.
 
 ---
 
@@ -61,10 +72,46 @@ Acompaña al observatorio interactivo **"Hacia el Gemelo Digital de la UNI"** (O
 
 ---
 
+## Rectorado 3 · 2036–2041 — Salto a la élite regional
+**Objetivo:** disputar el **liderazgo #1 de Latinoamérica en ingeniería** y entrar al top mundial por materia.
+
+**Metas:**
+- **Top 1–3 de LatAm en ingeniería** (producción e impacto).
+- **GRAS subject top ~50** en la materia de apuesta (Minería y Metalurgia).
+- Varios investigadores **Altamente Citados (HiCi)** propios.
+- Doctorado robusto: cientos de estudiantes de PhD activos; mayoría de docentes con doctorado.
+
+**Acciones clave:**
+1. Centros de excelencia consolidados con financiamiento plurianual y alianzas con industria.
+2. Programa agresivo de atracción/retención de talento senior internacional.
+3. Publicación sistemática en revistas de primer cuartil (Q1) y *Nature/Science* asociadas.
+4. Internacionalización plena: dobles grados, sedes/labs conjuntos, redes globales.
+
+**Inversión incremental:** ~**S/ 150–200 M/año** sostenidos (I+D ≥ 8% del presupuesto).
+
+---
+
+## Rectorado 4 · 2041–2046 — Cumplir la meta 2046
+**Objetivo:** **Top 1 de LatAm en ingeniería** + **Top 5 mundial en una materia de ingeniería**.
+
+**Metas:**
+- **#1 de Latinoamérica en ingeniería** (impacto y producción).
+- **GRAS subject top 5 mundial** en Minería y Metalurgia (u otra materia consolidada).
+- Ecosistema de investigación autosostenible (fondos competitivos, industria, patentes, spin-offs).
+
+**Acciones clave:**
+1. Masa crítica de HiCi y grupos de clase mundial por materia.
+2. Transferencia tecnológica como fuente de ingresos (regalías, patentes, parque tecnológico maduro).
+3. Posgrados acreditados internacionalmente con captación global de estudiantes de doctorado.
+
+**Inversión sostenida:** I+D estabilizada en **8–10% del presupuesto** (~S/ 40–60M/año o más, creciendo con el presupuesto total).
+
+---
+
 ## Reality check (honestidad)
-- El **top-100 GLOBAL** está dominado por universidades con **10–20× más presupuesto** y **20–100× más publicaciones**. No es meta de 10 años.
-- Ni siquiera los líderes de la región (USP, UNAM) entran al top-100 global pese a presupuestos de miles de millones.
-- **Meta realista de la década:** top nacional + top LatAm por materia + presencia estable en QS/GRAS. El top mundial es un **objetivo generacional** (política de Estado, 20–30 años).
+- El **top-5 mundial GENERAL** (Harvard, Stanford, MIT, Cambridge, Berkeley) está fuera de alcance a 20 años: tienen **10–20× más presupuesto** y **20–100× más publicaciones**. Ni la USP ni la UNAM entran al top-100 global pese a presupuestos de miles de millones. Por eso la meta 2046 es **top mundial *por materia* (GRAS)**, no general.
+- **Meta realista de la década (2036):** liderazgo nacional + top LatAm por materia + presencia estable en QS/GRAS.
+- **Meta generacional (2046):** **Top 1 LatAm en ingeniería + Top 5 mundial en una materia** — alcanzable solo con inversión sostenida en I+D como política de Estado.
 
 ---
 
