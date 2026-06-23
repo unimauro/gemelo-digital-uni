@@ -558,9 +558,11 @@ async function botLLM(q){
   const url=cfg.proxy||cfg.endpoint, headers={'Content-Type':'application/json'};
   if(!cfg.proxy&&cfg.apiKey) headers['Authorization']='Bearer '+cfg.apiKey;
   if(cfg.proxy&&cfg.clientToken) headers['X-Client-Token']=cfg.clientToken;
-  const res=await fetch(url,{method:'POST',headers,body:JSON.stringify({model:cfg.model,messages:[
+  const msgs=[
     {role:'system',content:'Eres el asistente del Gemelo Digital de la UNI. Responde en espanol, breve y directo, usando SOLO los datos provistos; si falta el dato, dilo. Tono honesto y realista; recuerda que el reto de la UNI es investigacion, doctorado y talento, no infraestructura.'},
-    {role:'user',content:ctx+'\n\nPregunta: '+q}]})});
+    {role:'user',content:ctx+'\n\nPregunta: '+q}];
+  const payload = cfg.proxy ? {project:(cfg.project||'observatorio'),messages:msgs} : {model:cfg.model,messages:msgs};
+  const res=await fetch(url,{method:'POST',headers,body:JSON.stringify(payload)});
   const j=await res.json();
   return mdmini((j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||j.content||j.reply||j.text||(j.error&&(j.error.message||j.error))||'Sin respuesta.');
 }
