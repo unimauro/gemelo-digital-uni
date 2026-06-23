@@ -475,7 +475,8 @@ function renderReal(DR){
     const ppm = last ? (last.works/PR.pim).toFixed(2) : '—';
     el('realKpis').innerHTML +=
       _card('Presupuesto '+PR.anio+' (MEF)', 'S/ '+PR.pim+'M', 'PIM · pliego 514 · devengado S/ '+PR.dev+'M ('+PR.ejec_pct+'%)')+
-      _card('Publicaciones por S/ millón', ppm, 'eficiencia real (papers '+(last?last.year:'')+'/ PIM)');
+      _card('Publicaciones por S/ millón', ppm, 'eficiencia real (papers '+(last?last.year:'')+'/ PIM)')+
+      '<div class="card stat" style="border-left:4px solid #ef4444"><div class="k">Inversión en I+D</div><div class="v" style="color:#ef4444">S/ '+(PR.idi||6.7)+'M</div><div class="d">¡solo '+(PR.idi_pct||1.8)+'% del presupuesto! · CTI (MEF)</div></div>';
   }
   const QS=DR.qs, RN=DR.renacyt, DOC=DR.docentes;
   let _ex2='';
@@ -548,7 +549,7 @@ function renderCritico(DR){
 function realityFill(DR){
   const u=(DR&&DR.uni)||{}, P=(DR&&DR.presupuesto)||{}, r=(DR&&DR.renacyt)||{}, dc=(DR&&DR.docentes)||{};
   const f=n=>(n==null)?'—':Number(n).toLocaleString('es-PE');
-  const txt='Sin anestesia: la UNI registra <b>~'+f(u.works)+'</b> trabajos de investigación en toda su historia (OpenAlex); <b>una sola</b> universidad del <b>top 10 mundial</b> publica más que eso en pocos meses. Su presupuesto anual ronda los <b>S/ '+(P.pim||370)+'M (~USD 100M)</b>: cerca del <b>1–2%</b> de lo que gasta al año un Harvard o un MIT. Mientras ellas tienen <b>miles de estudiantes de doctorado</b> y casi toda su plana con PhD, en la UNI solo el <b>'+(dc.posgrado_pct||44)+'%</b> de docentes tiene maestría y/o doctorado ('+(dc.anio||2017)+') y apenas <b>~'+f(r.valor||90)+' investigadores RENACYT</b>. Su <b>h-index es '+f(u.h_index||90)+'</b> frente a <b>800+</b> de las líderes (la USP de Brasil ya tiene 866). La brecha <b>no es de ladrillos</b>: es de <b>investigación, doctorado y talento</b>. Sin inversión sostenida en eso, ningún edificio nuevo acerca a la UNI al top mundial.';
+  const txt='Sin anestesia: la UNI registra <b>~'+f(u.works)+'</b> trabajos de investigación en toda su historia (OpenAlex); <b>una sola</b> universidad del <b>top 10 mundial</b> publica más que eso en pocos meses. Su presupuesto anual ronda los <b>S/ '+(P.pim||370)+'M (~USD 100M)</b>: cerca del <b>1–2%</b> de lo que gasta al año un Harvard o un MIT. Y lo más crudo: de ese presupuesto <b>solo S/ '+((P&&P.idi)||6.7)+'M ('+((P&&P.idi_pct)||1.8)+'%)</b> va a ciencia y tecnología. Mientras ellas tienen <b>miles de estudiantes de doctorado</b> y casi toda su plana con PhD, en la UNI solo el <b>'+(dc.posgrado_pct||44)+'%</b> de docentes tiene maestría y/o doctorado ('+(dc.anio||2017)+') y apenas <b>~'+f(r.valor||90)+' investigadores RENACYT</b>. Su <b>h-index es '+f(u.h_index||90)+'</b> frente a <b>800+</b> de las líderes (la USP de Brasil ya tiene 866). La brecha <b>no es de ladrillos</b>: es de <b>investigación, doctorado y talento</b>. Sin inversión sostenida en eso, ningún edificio nuevo acerca a la UNI al top mundial.';
   const t=document.getElementById('realityTxt'); if(t) t.innerHTML=txt;
 }
 function realityToggle(){ const c=document.getElementById('reality'); if(!c) return; const col=c.classList.toggle('col'); const h=document.getElementById('realityHint'); if(h) h.textContent=col?'(toca para leer)':'(toca para ocultar)'; }
