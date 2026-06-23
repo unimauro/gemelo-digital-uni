@@ -95,6 +95,30 @@
   .nav button.tbtn{background:var(--card);border:1px solid var(--line);color:var(--txt);border-radius:999px;padding:6px 12px;cursor:pointer;font-family:inherit;font-weight:700;font-size:.85rem;white-space:nowrap;flex-shrink:0;}
   .nav button.tbtn:hover{border-color:var(--uni2);}
   section{scroll-margin-top:60px;}
+  /* Robot / chat */
+  #botFab{position:fixed;right:18px;bottom:18px;z-index:60;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--uni),var(--uni2));color:#fff;font-size:1.55rem;box-shadow:0 8px 22px rgba(193,18,31,.45);}
+  #botFab:hover{transform:scale(1.05);}
+  .botPanel{position:fixed;right:18px;bottom:84px;z-index:60;width:360px;max-width:calc(100vw - 36px);height:480px;max-height:72vh;background:var(--card);border:1px solid var(--line);border-radius:16px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.45);}
+  .botPanel.open{display:flex;}
+  .botHead{background:linear-gradient(135deg,var(--uni),var(--uni2));color:#fff;font-weight:700;padding:12px 14px;font-size:.95rem;display:flex;align-items:center;gap:8px;}
+  .botX{margin-left:auto;background:rgba(255,255,255,.2);border:0;color:#fff;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:.8rem;}
+  .botMsgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;}
+  .botMsgs .m{padding:9px 12px;border-radius:12px;font-size:.88rem;max-width:88%;line-height:1.45;}
+  .botMsgs .me{align-self:flex-end;background:var(--uni);color:#fff;}
+  .botMsgs .bot{align-self:flex-start;background:var(--card2);border:1px solid var(--line);}
+  .botChips{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px;}
+  .botChips button{background:var(--card2);border:1px solid var(--line);color:var(--muted);font-size:.74rem;padding:5px 9px;border-radius:999px;cursor:pointer;font-family:inherit;}
+  .botChips button:hover{border-color:var(--uni2);color:var(--txt);}
+  .botInput{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line);}
+  .botInput input{flex:1;background:var(--bg2);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:9px 11px;font-family:inherit;font-size:.88rem;}
+  .botInput button{background:var(--uni);color:#fff;border:0;border-radius:10px;padding:0 14px;cursor:pointer;font-size:1rem;}
+  /* Responsive */
+  @media(max-width:700px){
+    .chartbox{height:240px;}
+    .sec-h h2{font-size:1.12rem;} .sec-h .ico{width:32px;height:32px;font-size:1rem;}
+    header.top{padding:24px 0 14px;} .nav .in{padding:8px 12px;}
+    .wrap{padding:0 14px;}
+  }
   @media(max-width:600px){ .v{font-size:1.5rem;} }
 </style>
 </head>
@@ -241,7 +265,8 @@
 <footer>
   <div class="wrap">
     <p><b>Gemelo Digital de la UNI</b> — Impacto académico por sol invertido.</p>
-    <p style="margin-top:6px">⚠️ Datos <b>ilustrativos</b>. Arquitectura lista para integrar fuentes oficiales (SUNEDU, CONCYTEC/RENACYT, MEF, QS/SCImago, Scopus/WoS). Hecho por <a href="https://unimauro.github.io/">Carlos Mauro Cárdenas</a>.</p>
+    <p style="margin-top:6px">📊 <b>Datos reales:</b> OpenAlex (bibliometría) · MEF/SIAF (presupuesto) · QS · CONCYTEC/RENACYT · SUNEDU — con fuente y año. El <b>modelo de simulación</b> es ilustrativo y calibrable. SCImago SIR y ShanghaiRanking GRAS aún no verificados (acceso bloqueado).</p>
+    <p style="margin-top:12px;font-size:.9rem;color:var(--muted)">Creado por <b><a href="https://unimauro.github.io/">Carlos Cárdenas Fernández</a></b> — <a href="https://github.com/unimauro">unimauro</a> 🛠️</p>
   </div>
 </footer>
 
@@ -392,7 +417,7 @@ function renderComp(DR){
   const order=['uni','sanmarcos','pucp','cayetano','uchile','unam','usp'].filter(k=>DR[k]);
   _mk('hChart','bar',{labels:order.map(_short),datasets:[{label:'h-index',data:order.map(k=>DR[k].h_index),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#f4b740')}]},{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
 }
-fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{renderReal(d);renderComp(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
+fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{window.DR=d;renderReal(d);renderComp(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
 
 /* Tema día/noche + compartir */
 function applyTheme(t){ document.body.dataset.theme=t; const b=el('themeBtn'); if(b) b.textContent = t==='light'?'🌙 Noche':'☀️ Día'; }
@@ -402,6 +427,40 @@ function compartir(btn){ const u=location.href.split('#')[0];
   if(navigator.share){ navigator.share({title:'Gemelo Digital de la UNI',text:'¿Qué decisiones suben a la UNI en los rankings por cada sol invertido?',url:u}).catch(()=>{}); return; }
   navigator.clipboard.writeText(u).then(()=>{ const o=btn.textContent; btn.textContent='✅ Copiado'; setTimeout(()=>btn.textContent=o,1600); }).catch(()=>{});
 }
+
+/* ===== Robot: conversar con los datos (heurístico, sobre datos reales) ===== */
+function botToggle(){ const p=el('botPanel'); p.classList.toggle('open');
+  if(p.classList.contains('open') && !p._init){ p._init=1;
+    botSay('¡Hola! 🤖 Soy el asistente del Gemelo Digital de la UNI. Pregúntame por <b>publicaciones, citaciones, h-index, presupuesto, ranking, RENACYT, docentes</b>, una <b>comparación</b> con otras universidades, o <b>qué conviene invertir</b> para subir.'); botChips(); } }
+function botSay(html,who){ const d=document.createElement('div'); d.className='m '+(who==='me'?'me':'bot'); d.innerHTML=html; el('botMsgs').appendChild(d); el('botMsgs').scrollTop=1e9; }
+function botChips(){ const qs=['¿Cuántas publicaciones tiene?','¿Cuál es el presupuesto?','¿En qué ranking está?','Compárala con San Marcos','¿Qué conviene invertir?','¿Cuántos RENACYT?'];
+  el('botChips').innerHTML=qs.map(q=>'<button onclick="botAsk(this.textContent)">'+q+'</button>').join(''); }
+function botAsk(q){ el('botIn').value=q; botSend(); }
+function botSend(){ const i=el('botIn'); const q=(i.value||'').trim(); if(!q) return; botSay(q,'me'); i.value=''; setTimeout(()=>botSay(botAnswer(q)),200); }
+function botAnswer(qr){
+  const D=window.DR||{}, u=D.uni||{}, by=u.by_year||[], last=by.length?by[by.length-1]:null;
+  const q=qr.toLowerCase(), f=n=>(n==null)?'—':Number(n).toLocaleString('es-PE');
+  const has=(...w)=>w.some(x=>q.includes(x));
+  if(has('publicacion','paper','articul')) return 'La UNI tiene <b>'+f(u.works)+'</b> publicaciones totales (OpenAlex)'+(last?(', y <b>'+f(last.works)+'</b> en '+last.year):'')+'. Es su principal palanca para ShanghaiRanking/ARWU.';
+  if(has('citaci','cita')) return 'Citaciones totales: <b>'+f(u.cited)+'</b>; h-index <b>'+f(u.h_index)+'</b> (OpenAlex).';
+  if(has('h-index','h index','indice h','índice h')) return 'El h-index de la UNI es <b>'+f(u.h_index)+'</b> (i10: '+f(u.i10)+').';
+  if(has('presupuesto','plata','dinero','financia','soles','sol invertido')) { const P=D.presupuesto||{}; return 'Presupuesto UNI '+P.anio+' (MEF/SIAF, pliego 514): <b>PIM S/ '+P.pim+'M</b>, devengado S/ '+P.dev+'M ('+P.ejec_pct+'% ejecución).'+(last&&P.pim?(' Eficiencia: <b>'+(last.works/P.pim).toFixed(2)+'</b> publicaciones por S/ millón.'):''); }
+  if(has('ranking','qs','posicion','posición','shanghai','arwu')) { const qs=(D.qs&&D.qs.world)||[]; const q24=qs.find(x=>x.anio===2024); return 'En <b>QS World</b> la UNI estuvo en la banda <b>'+(q24?q24.banda:'—')+'</b> (2024); entra y sale (volátil). El <b>ShanghaiRanking/ARWU</b> es 100% investigación: lo decisivo es publicaciones, citas y talento, no infraestructura.'; }
+  if(has('renacyt','investigador')) { const r=D.renacyt||{}; return 'Investigadores calificados <b>RENACYT</b>: <b>'+f(r.valor)+'</b> ('+r.anio+', CONCYTEC).'; }
+  if(has('docente','profesor','phd','doctor','plana')) { const dc=D.docentes||{}; return 'La UNI tiene <b>'+f(dc.total)+'</b> docentes; <b>'+dc.posgrado_pct+'%</b> con maestría/doctorado ('+dc.anio+', SUNEDU).'; }
+  if(has('compar','san marcos','pucp','usp','brecha','versus',' vs')) { const sm=D.sanmarcos,usp=D.usp; return 'Brecha de investigación: UNI <b>'+f(u.works)+'</b> publicaciones vs San Marcos <b>'+f(sm&&sm.works)+'</b> y USP-Brasil <b>'+f(usp&&usp.works)+'</b>. El reto es investigación/publicaciones, no ladrillos.'; }
+  if(has('invertir','mejorar','subir','recomien','que hacer','qué hacer','estrategia','conviene')) return 'Para subir en ARWU/ShanghaiRanking conviene invertir en lo que el ranking mide: <b>becas doctorales, fondos de investigación, convenios internacionales, laboratorios e investigadores altamente citados (HiCi)</b>. La infraestructura/administración casi no mueve el ranking. Usa el <a href="#sim">Simulador</a> para ver cuánta inversión se necesita.';
+  if(has('isi','eficiencia','por sol')) { const P=D.presupuesto||{}; return 'El <b>ISI</b> mide impacto por sol. Hoy la UNI produce '+((last&&P.pim)?('<b>'+(last.works/P.pim).toFixed(2)+'</b> publicaciones por S/ millón'):'—')+'. Reasignar hacia investigación sube ese ratio.'; }
+  if(has('hola','buenas','ayuda','que puedes','qué puedes')) return 'Puedo responder sobre: publicaciones, citaciones, h-index, presupuesto (MEF), ranking (QS/ARWU), RENACYT, docentes, comparación con pares y qué conviene invertir. 🙂';
+  return 'No tengo ese dato exacto, pero sí puedo contarte de: <b>publicaciones, citaciones, h-index, presupuesto, ranking, RENACYT, docentes</b> o <b>qué conviene invertir</b>. Prueba una sugerencia de abajo. (Datos reales: OpenAlex + MEF + QS/CONCYTEC/SUNEDU.)';
+}
 </script>
+<button id="botFab" onclick="botToggle()" aria-label="Conversar con los datos">🤖</button>
+<div id="botPanel" class="botPanel">
+  <div class="botHead">🤖 Pregúntale a los datos de la UNI <button class="botX" onclick="botToggle()">✕</button></div>
+  <div class="botMsgs" id="botMsgs"></div>
+  <div class="botChips" id="botChips"></div>
+  <div class="botInput"><input id="botIn" placeholder="Escribe tu pregunta..." onkeydown="if(event.key===\'Enter\')botSend()"><button onclick="botSend()">➤</button></div>
+</div>
 </body>
 </html>
