@@ -118,6 +118,10 @@
   .botInput input{flex:1;background:var(--bg2);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:9px 11px;font-family:inherit;font-size:.88rem;}
   .botInput button{background:var(--uni);color:#fff;border:0;border-radius:10px;padding:0 14px;cursor:pointer;font-size:1rem;}
   /* Responsive */
+  .support{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0 4px;}
+  .support a,.support button{display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-weight:800;font-size:.85rem;padding:9px 16px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;}
+  .s-coffee{background:#ffdd00;color:#1a1206;} .s-yape{background:#742384;color:#fff;} .s-paypal{background:#0070ba;color:#fff;}
+  .support a:hover,.support button:hover{filter:brightness(1.06);transform:translateY(-1px);}
   @media(max-width:700px){
     .chartbox{height:240px;}
     .sec-h h2{font-size:1.12rem;} .sec-h .ico{width:32px;height:32px;font-size:1rem;}
@@ -334,6 +338,11 @@
   <div class="wrap">
     <p><b>Gemelo Digital de la UNI</b> — Impacto académico por sol invertido.</p>
     <p style="margin-top:6px">📊 <b>Datos reales:</b> OpenAlex (bibliometría) · MEF/SIAF (presupuesto) · QS · CONCYTEC/RENACYT · SUNEDU — con fuente y año. El <b>modelo de simulación</b> es ilustrativo y calibrable. SCImago SIR y ShanghaiRanking GRAS aún no verificados (acceso bloqueado).</p>
+    <div class="support">
+      <a class="s-coffee" href="https://buymeacoffee.com/unimauro" target="_blank" rel="noopener">☕ Invítame un café</a>
+      <button class="s-yape" onclick="yape()">💜 Yápeame</button>
+      <a class="s-paypal" href="https://paypal.me/unimauro" target="_blank" rel="noopener">🅿️ PayPal</a>
+    </div>
     <p style="margin-top:12px;font-size:.9rem;color:var(--muted)">Creado por <b><a href="https://unimauro.github.io/">Carlos Cárdenas Fernández</a></b> — <a href="https://github.com/unimauro">unimauro</a> 🛠️</p>
   </div>
 </footer>
@@ -523,6 +532,7 @@ setTimeout(function(){ const c=document.getElementById('reality'); if(c&&!c.clas
 function applyTheme(t){ document.body.dataset.theme=t; const b=el('themeBtn'); if(b) b.textContent = t==='light'?'🌙 Noche':'☀️ Día'; }
 function toggleTheme(){ const t=document.body.dataset.theme==='light'?'dark':'light'; applyTheme(t); try{localStorage.setItem('uni_theme',t);}catch(e){} }
 (function(){ let t='dark'; try{t=localStorage.getItem('uni_theme')||'dark';}catch(e){} applyTheme(t); })();
+function yape(){ alert('💜 Yápeame a: Carlos Cárdenas Fernández\n(Gracias por apoyar el proyecto 🙌)'); }
 function compartir(btn){ const u=location.href.split('#')[0];
   if(navigator.share){ navigator.share({title:'Gemelo Digital de la UNI',text:'¿Qué decisiones suben a la UNI en los rankings por cada sol invertido?',url:u}).catch(()=>{}); return; }
   navigator.clipboard.writeText(u).then(()=>{ const o=btn.textContent; btn.textContent='✅ Copiado'; setTimeout(()=>btn.textContent=o,1600); }).catch(()=>{});
