@@ -125,7 +125,7 @@
 <body>
 <nav class="nav"><div class="in">
   <span class="brand">🎓 UNI</span>
-  <a class="chip" href="#resumen">Resumen</a>
+  <a class="chip" href="#ahora">📸 Datos ahora</a>
   <a class="chip" href="#sim">Simulador</a>
   <a class="chip" href="#real">Datos reales</a>
   <a class="chip" href="#comp">Comparaciones</a>
@@ -149,15 +149,17 @@
 
 <div class="wrap">
 
-  <!-- KPI -->
-  <section id="resumen">
-    <div class="grid g4" id="kpis"></div>
+  <!-- DATOS DE AHORA (foto del presente, real) -->
+  <section id="ahora">
+    <div class="sec-h"><span class="ico">📸</span><h2>Datos de ahora — la UNI hoy (real)</h2></div>
+    <p class="sec-desc">Fotografía del presente con <b>datos reales</b> (OpenAlex · MEF · QS · CONCYTEC · SUNEDU). Es el <b>punto de partida</b>; abajo, el simulador proyecta el futuro y su costo.</p>
+    <div class="grid g4" id="realKpis"></div>
   </section>
 
   <!-- SIMULADOR / GEMELO DIGITAL -->
   <section id="sim">
     <div class="sec-h"><span class="ico">🧪</span><h2>Simulador — Gemelo Digital de la UNI</h2></div>
-    <p class="sec-desc">Distribuye una inversión adicional entre actividades y observa el impacto proyectado en publicaciones, citaciones, docentes con PhD y posiciones de ranking. Coeficientes transparentes y ajustables (ilustrativos).</p>
+    <p class="sec-desc"><b>Dónde estás hoy → a dónde llegas → cuánto cuesta.</b> Mueve las palancas (o usa el modo "Meta → Inversión"); el impacto va sobre la <b>línea base real</b> de arriba. Porque nada es gratis: cada meta tiene su costo. Coeficientes transparentes y ajustables.</p>
     <div class="presets">
       <button id="m-fwd" onclick="setMode('fwd')">📈 Inversión → Impacto</button>
       <button id="m-meta" onclick="setMode('meta')">🎯 Meta → Inversión necesaria</button>
@@ -171,6 +173,7 @@
       <span>🎯 Meta: subir</span> <input type="number" id="metaPos" value="15" min="1" step="1"> posiciones de ranking
       &nbsp;·&nbsp; en <input type="number" id="metaYears" value="8" min="1" max="20" style="width:64px"> años
     </div>
+    <div class="grid g4" id="kpis" style="margin:6px 0 14px"></div>
     <div class="grid g2">
       <div class="card">
         <div id="levers"></div>
@@ -183,9 +186,8 @@
 
   <!-- DATOS REALES -->
   <section id="real">
-    <div class="sec-h"><span class="ico">📊</span><h2>Datos reales de investigación (OpenAlex)</h2></div>
+    <div class="sec-h"><span class="ico">📊</span><h2>Investigación: evolución y comparación (real)</h2></div>
     <p class="sec-desc">Bibliometría <b>real</b> de la UNI y comparación con pares. Fuente: <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a> (abierto, CC0). Justamente lo que pesa en ARWU/ShanghaiRanking.</p>
-    <div class="grid g4" id="realKpis"></div>
     <div class="grid g2" style="margin-top:14px">
       <div class="card"><h3 style="font-size:1rem;margin-bottom:8px">Publicaciones por año — UNI (real)</h3><div class="chartbox"><canvas id="pubChart"></canvas></div></div>
       <div class="card"><h3 style="font-size:1rem;margin-bottom:8px">UNI vs pares — publicaciones totales (escala log)</h3><div class="chartbox"><canvas id="cmpChart"></canvas></div></div>
@@ -236,6 +238,7 @@
         <p class="sec-desc" style="margin-top:6px;margin-bottom:0">Estimaciones de orden de magnitud (referenciales). Usa el <a href="#sim">Simulador</a> en modo "Meta → Inversión".</p>
       </div>
     </div>
+    <p class="sec-desc" style="margin-top:14px">🔜 <b>Próximos indicadores a simular:</b> satisfacción / evaluación docente (encuestas UNI / Suyay, agregadas y anónimas), egresados y empleabilidad, y patentes / transferencia tecnológica.</p>
   </section>
 
   <!-- TABLA INVERSIÓN -> IMPACTO -->
