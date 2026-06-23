@@ -130,7 +130,10 @@
   <a class="chip" href="#real">Datos reales</a>
   <a class="chip" href="#comp">Comparaciones</a>
   <a class="chip" href="#arwu">Ranking</a>
+  <a class="chip" href="#regional">🌎 Regional</a>
+  <a class="chip" href="#plan">🚀 Plan 5 años</a>
   <a class="chip" href="#kpi-final">¿Cómo ayuda?</a>
+  <a class="chip" href="faq.html">📖 Guía</a>
   <span class="sp"></span>
   <button class="tbtn" id="themeBtn" onclick="toggleTheme()">☀️ Día</button>
   <button class="tbtn" onclick="compartir(this)">🔗 Compartir</button>
@@ -200,6 +203,39 @@
       <div class="card"><h3 style="font-size:1rem;margin-bottom:8px">Publicaciones por año — UNI vs San Marcos vs PUCP</h3><div class="chartbox"><canvas id="multiChart"></canvas></div></div>
     </div>
     <div class="card" style="margin-top:14px"><h3 style="font-size:1rem;margin-bottom:8px">h-index — UNI vs pares</h3><div class="chartbox"><canvas id="hChart"></canvas></div></div>
+  </section>
+
+  <!-- COMPARACIÓN REGIONAL -->
+  <section id="regional">
+    <div class="sec-h"><span class="ico">🌎</span><h2>Comparación regional (datos reales)</h2></div>
+    <p class="sec-desc">La UNI frente a las principales universidades de la región (una por país) y a las top peruanas (pública y privadas). Fuente: OpenAlex.</p>
+    <div class="card" style="overflow-x:auto"><div id="tablaReg">—</div></div>
+  </section>
+
+  <!-- PLAN 5 AÑOS -->
+  <section id="plan">
+    <div class="sec-h"><span class="ico">🚀</span><h2>¿Cómo mejorar a 5 años? (plan realista)</h2></div>
+    <p class="sec-desc">Metas alcanzables y con sentido para la UNI — no "top 100 mundial" mágico, sino pasos sólidos. <a href="faq.html">Ver reality check del Top 100 y la guía →</a></p>
+    <div class="grid g2">
+      <div class="card"><h3 style="font-size:1rem;margin-bottom:8px">🎯 Metas a 5 años</h3><ul style="margin-left:18px;color:var(--muted);font-size:.92rem;line-height:1.7">
+        <li><b style="color:var(--txt)">Duplicar publicaciones</b> (~4.7k → ~9k acumuladas; subir las anuales).</li>
+        <li><b style="color:var(--txt)">+RENACYT</b>: de 90 a 200+ investigadores calificados.</li>
+        <li><b style="color:var(--txt)">Estabilizar el QS World</b> (dejar de entrar/salir) y aparecer en <b>GRAS por materia</b> (ingeniería).</li>
+        <li><b style="color:var(--txt)">+ docentes con doctorado</b> y más coautorías internacionales.</li>
+        <li><b style="color:var(--txt)">Liderazgo nacional en ingeniería</b> y top LatAm por materia.</li>
+      </ul></div>
+      <div class="card"><h3 style="font-size:1rem;margin-bottom:8px">💰 Inversión (orden de magnitud)</h3>
+        <p class="sec-desc" style="margin-bottom:8px">⚠️ S/ 15M <b>no bastan</b>. Se requiere inversión <b>incremental y sostenida</b> en investigación:</p>
+        <table><thead><tr><th>Eje</th><th>S/ adicional / año (estimado)</th></tr></thead><tbody>
+          <tr><td>Becas doctorales</td><td>20–30 M</td></tr>
+          <tr><td>Fondos de investigación</td><td>15–25 M</td></tr>
+          <tr><td>Convenios internacionales / HiCi</td><td>10–15 M</td></tr>
+          <tr><td>Laboratorios</td><td>5–10 M</td></tr>
+          <tr><td><b>Total incremental</b></td><td><b>~50–80 M / año</b></td></tr>
+        </tbody></table>
+        <p class="sec-desc" style="margin-top:6px;margin-bottom:0">Estimaciones de orden de magnitud (referenciales). Usa el <a href="#sim">Simulador</a> en modo "Meta → Inversión".</p>
+      </div>
+    </div>
   </section>
 
   <!-- TABLA INVERSIÓN -> IMPACTO -->
@@ -280,7 +316,7 @@ const LEVERS=[
   ['infra','🏗️ Infraestructura / edificios',0.15],
   ['admin','🗂️ Servicios administrativos',0.05],
 ];
-const BASE={ pos:62, pubs:600, cit:4200, phd:340 }; // línea base ilustrativa (ranking LatAm, papers/año, citas/año, docentes PhD)
+const BASE={ pos:62, posWorld:975, pubs:600, cit:4200, phd:340 }; // pos=LatAm (ilustrativo), posWorld=QS World (~banda 951-1000, 2024) // línea base ilustrativa (ranking LatAm, papers/año, citas/año, docentes PhD)
 
 function el(id){return document.getElementById(id);}
 function renderLevers(){
@@ -329,7 +365,7 @@ function calc(){
     `<div class="card stat"><div class="k">Publicaciones</div><div class="v" style="color:var(--azul)">+${dPub}%</div><div class="d">base ~${BASE.pubs}/año</div></div>`+
     `<div class="card stat"><div class="k">Citaciones</div><div class="v" style="color:var(--morado)">+${dCit}%</div><div class="d">base ~${BASE.cit}/año</div></div>`+
     `<div class="card stat"><div class="k">Nuevos docentes PhD</div><div class="v" style="color:var(--verde)">+${nphd}</div><div class="d">base ~${BASE.phd}</div></div>`+
-    `<div class="card stat"><div class="k">Posición proyectada</div><div class="v">#${Math.max(1,BASE.pos-dPos)}</div><div class="d">desde #${BASE.pos} (LatAm, ilustrativo)</div></div>`;
+    `<div class="card stat"><div class="k">Posición proyectada</div><div class="v">#${Math.max(1,BASE.pos-dPos)} <span style="font-size:.85rem;color:var(--muted)">LatAm</span></div><div class="d">Mundo (QS): ~#${Math.max(1,Math.round(BASE.posWorld-dPos*8))} (desde ~#${BASE.posWorld}) · ilustrativo</div></div>`;
   // Chart: posición a lo largo de los años (menor = mejor)
   const yrs=[0,2,4,6,8].filter(y=>y<=Y); if(yrs[yrs.length-1]!==Y) yrs.push(Y);
   const data=yrs.map(y=>{ const imp=Math.pow(S,1.4)*B*(y/8); return Math.max(1, Math.round(BASE.pos-imp)); });
@@ -353,7 +389,7 @@ function calcMeta(){
     `<div class="card stat"><div class="k">Inversión necesaria</div><div class="v" style="color:var(--gold)">${Btxt}</div><div class="d">para subir +${P} en ${Y} años</div></div>`+
     `<div class="card stat"><div class="k">Por año</div><div class="v">${peryr}</div><div class="d">presupuesto anual</div></div>`+
     `<div class="card stat"><div class="k">Índice de Impacto por Sol (ISI)</div><div class="v" style="color:${isi>=66?'var(--verde)':isi>=40?'var(--ambar)':'var(--rojo)'}">${isi}/100</div><div class="d">eficiencia de la estrategia</div></div>`+
-    `<div class="card stat"><div class="k">Posición objetivo</div><div class="v">#${Math.max(1,BASE.pos-P)}</div><div class="d">desde #${BASE.pos} (ilustrativo)</div></div>`;
+    `<div class="card stat"><div class="k">Posición objetivo</div><div class="v">#${Math.max(1,BASE.pos-P)} <span style="font-size:.85rem;color:var(--muted)">LatAm</span></div><div class="d">Mundo (QS): ~#${Math.max(1,Math.round(BASE.posWorld-P*8))} · ilustrativo</div></div>`;
   el('outs').innerHTML = viable
     ? LEVERS.filter(l=>a[l[0]]>0).map(l=>`<div class="card stat"><div class="k">${l[1]}</div><div class="v" style="font-size:1.3rem">S/ ${Math.round(Breq*a[l[0]]/T)}M</div><div class="d">${Math.round(a[l[0]]/T*100)}% · peso ${l[2]}</div></div>`).join('')
     : `<div class="card" style="grid-column:1/-1;color:var(--ambar)">Con esta estrategia el costo es prohibitivo (baja eficiencia ARWU). Reasigna hacia <b>becas, convenios e investigación</b> para que la meta sea alcanzable.</div>`;
@@ -398,13 +434,21 @@ function renderReal(DR){
   if(last){ BASE.pubs=last.works; BASE.cit=last.cited; } if(u.h_index) BASE.h=u.h_index; calc();
   _mk('pubChart','line',{labels:by.map(x=>x.year),datasets:[{label:'Publicaciones',data:by.map(x=>x.works),borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.15)',fill:true,tension:.3}]},
     {plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
-  const order=['uni','sanmarcos','pucp','cayetano','uchile','unam','usp'].filter(k=>DR[k]);
+  const order=['uni','sanmarcos','pucp','cayetano','unal','uba','uchile','unam','usp'].filter(k=>DR[k]);
   _mk('cmpChart','bar',{labels:order.map(_short),datasets:[{label:'Publicaciones',data:order.map(k=>DR[k].works),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#3b82f6')}]},
     {plugins:{legend:{display:false}},scales:{y:{type:'logarithmic',grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
   el('realAreas').innerHTML=(u.concepts||[]).map(c=>`<span class="pill p-medio" style="margin:3px;display:inline-block">${c.t}</span>`).join(' ')||'—';
   // brecha
   const sm=DR.sanmarcos, usp=DR.usp;
   if(sm&&usp) el('realGap').innerHTML=`📉 La UNI tiene <b>${fmtN(u.works)}</b> publicaciones; San Marcos <b>${fmtN(sm.works)}</b> y la USP (Brasil) <b>${fmtN(usp.works)}</b>. La brecha para subir en ARWU es de <b>investigación y publicaciones</b>, no de infraestructura.`;
+}
+const UMETA={uni:['🇵🇪','Pública','UNI'],sanmarcos:['🇵🇪','Pública','UNMSM (San Marcos)'],pucp:['🇵🇪','Privada','PUCP'],cayetano:['🇵🇪','Privada','Cayetano Heredia'],uchile:['🇨🇱','Pública','U. de Chile'],unam:['🇲🇽','Pública','UNAM'],usp:['🇧🇷','Pública','USP'],uba:['🇦🇷','Pública','UBA'],unal:['🇨🇴','Pública','U. Nacional Colombia']};
+function renderTabla(DR){
+  const ks=Object.keys(UMETA).filter(k=>DR[k]); ks.sort((a,b)=>(DR[b].works||0)-(DR[a].works||0));
+  const rows=ks.map(k=>{const x=DR[k],m=UMETA[k];const hi=k==='uni'?' style="background:rgba(193,18,31,.12)"':'';
+    const nm=k==='uni'?'<b style="color:var(--uni2)">'+m[0]+' '+m[2]+'</b>':(m[0]+' '+m[2]);
+    return '<tr'+hi+'><td>'+nm+'</td><td>'+m[1]+'</td><td>'+fmtN(x.works)+'</td><td>'+fmtN(x.cited)+'</td><td>'+fmtN(x.h_index)+'</td><td>'+((x.concepts&&x.concepts[0])?x.concepts[0].t:'—')+'</td></tr>';}).join('');
+  el('tablaReg').innerHTML='<table><thead><tr><th>Universidad</th><th>Tipo</th><th>Publicaciones</th><th>Citaciones</th><th>h-index</th><th>Área top</th></tr></thead><tbody>'+rows+'</tbody></table>';
 }
 function renderComp(DR){
   const u=DR.uni; if(!u) return;
@@ -414,10 +458,10 @@ function renderComp(DR){
   const col={uni:'#e63946',sanmarcos:'#3b82f6',pucp:'#22c55e'};
   const ds=set.map(k=>{const m={};(DR[k].by_year||[]).forEach(x=>m[x.year]=x.works);return {label:_short(k),data:yrs.map(y=>(y in m)?m[y]:null),borderColor:col[k],backgroundColor:'transparent',tension:.3,spanGaps:true};});
   _mk('multiChart','line',{labels:yrs,datasets:ds},{plugins:{legend:{labels:{color:'#94a0c0',boxWidth:12}}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
-  const order=['uni','sanmarcos','pucp','cayetano','uchile','unam','usp'].filter(k=>DR[k]);
+  const order=['uni','sanmarcos','pucp','cayetano','unal','uba','uchile','unam','usp'].filter(k=>DR[k]);
   _mk('hChart','bar',{labels:order.map(_short),datasets:[{label:'h-index',data:order.map(k=>DR[k].h_index),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#f4b740')}]},{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
 }
-fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{window.DR=d;renderReal(d);renderComp(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
+fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{window.DR=d;renderReal(d);renderComp(d);renderTabla(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
 
 /* Tema día/noche + compartir */
 function applyTheme(t){ document.body.dataset.theme=t; const b=el('themeBtn'); if(b) b.textContent = t==='light'?'🌙 Noche':'☀️ Día'; }

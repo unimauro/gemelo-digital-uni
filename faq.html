@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía e indicadores — Gemelo Digital de la UNI</title>
+<meta name="description" content="Cómo leer el Gemelo Digital de la UNI: qué significa cada indicador, sus fuentes, y qué se necesita realmente para subir al top de los rankings.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0c0f17;--bg2:#121624;--card:#171c2e;--card2:#1d2440;--line:#2a3252;--txt:#eef1f8;--muted:#94a0c0;--muted2:#5f6c93;--uni:#c1121f;--uni2:#e63946;--gold:#f4b740;--verde:#22c55e;--ambar:#f59e0b;--rojo:#ef4444;}
+  body[data-theme="light"]{--bg:#f3f5fa;--bg2:#fff;--card:#fff;--card2:#eef1f8;--line:#dfe4ee;--txt:#18202f;--muted:#5b6680;--muted2:#8a95ab;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;
+    background-image:radial-gradient(circle at 12% 0%,rgba(193,18,31,.14),transparent 42%);background-attachment:fixed;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 18px;}
+  a{color:var(--gold);text-decoration:none;}
+  .nav{position:sticky;top:0;z-index:30;background:rgba(12,15,23,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  body[data-theme="light"] .nav{background:rgba(255,255,255,.92);}
+  .nav .in{display:flex;gap:10px;align-items:center;max-width:920px;margin:0 auto;padding:10px 18px;}
+  .nav a.back{color:var(--uni2);font-weight:800;}
+  .nav .sp{margin-left:auto;}
+  .nav button{background:var(--card);border:1px solid var(--line);color:var(--txt);border-radius:999px;padding:6px 12px;cursor:pointer;font-family:inherit;font-weight:700;font-size:.85rem;}
+  header.h{padding:30px 0 8px;}
+  header.h h1{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:900;}
+  header.h h1 .hl{background:linear-gradient(90deg,var(--uni2),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  header.h p{color:var(--muted);margin-top:4px;}
+  h2{font-size:1.3rem;font-weight:800;margin:30px 0 6px;border-left:4px solid var(--uni2);padding-left:10px;}
+  h3{font-size:1.05rem;margin:16px 0 4px;color:var(--gold);}
+  p,li{color:var(--txt);font-size:.95rem;} .muted{color:var(--muted);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0;}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:var(--card2);font-size:.8rem;text-transform:uppercase;color:var(--muted);}
+  .tag{font-size:.68rem;font-weight:800;padding:2px 7px;border-radius:6px;}
+  .real{background:rgba(34,197,94,.2);color:#86efac;} .ilus{background:rgba(245,158,11,.2);color:#fcd34d;}
+  ul,ol{margin:6px 0 6px 20px;}
+  .box{background:linear-gradient(135deg,rgba(193,18,31,.12),rgba(244,183,64,.08));border:1px solid rgba(193,18,31,.3);border-radius:14px;padding:16px;margin:14px 0;}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 50px;color:var(--muted2);font-size:.82rem;text-align:center;}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="in">
+  <a class="back" href="index.html">← Volver al tablero</a>
+  <span class="sp"></span>
+  <button onclick="tt()" id="tb">☀️ Día</button>
+</div></nav>
+
+<header class="h"><div class="wrap">
+  <h1>Guía e indicadores — <span class="hl">Gemelo Digital de la UNI</span></h1>
+  <p>Cómo leer cada dato, de dónde sale, y qué se necesita realmente para subir en los rankings.</p>
+</div></header>
+
+<div class="wrap">
+
+  <h2>1. ¿Cómo leer el tablero?</h2>
+  <div class="card">
+    <ul>
+      <li><b>Simulador (2 modos):</b> <i>Inversión → Impacto</i> (pones S/ y ves el efecto) y <i>Meta → Inversión necesaria</i> (pones la meta de posiciones y te dice cuánto cuesta).</li>
+      <li><b>ISI (Índice de Impacto por Sol):</b> qué tan bien asignas el dinero hacia lo que mueve el ranking (0–100). Becas/investigación suben el ISI; infraestructura/administración lo bajan.</li>
+      <li><b>Semáforos:</b> 🟢 adecuado · 🟡 atención · 🔴 crítico.</li>
+      <li><b>Datos reales vs ilustrativos:</b> los marcamos siempre (ver tabla). Lo real trae fuente y año.</li>
+      <li><b>🤖 Robot:</b> pregúntale por cualquier indicador, presupuesto o comparación.</li>
+    </ul>
+  </div>
+
+  <h2>2. Qué significa cada indicador</h2>
+  <table>
+    <thead><tr><th>Indicador</th><th>Qué es / cómo leerlo</th><th>Fuente</th><th>Tipo</th></tr></thead>
+    <tbody>
+      <tr><td><b>Publicaciones</b></td><td>Artículos científicos publicados (total e por año). Más = mejor; es la base de ARWU.</td><td>OpenAlex</td><td><span class="tag real">real</span></td></tr>
+      <tr><td><b>Citaciones</b></td><td>Veces que otros citan los trabajos de la UNI. Mide impacto/influencia.</td><td>OpenAlex</td><td><span class="tag real">real</span></td></tr>
+      <tr><td><b>h-index</b></td><td>Tienes <i>h</i> papers con al menos <i>h</i> citas cada uno. Resume productividad + impacto en un número (UNI = 90).</td><td>OpenAlex</td><td><span class="tag real">real</span></td></tr>
+      <tr><td><b>Presupuesto (PIM/PIA/Devengado)</b></td><td>PIA = inicial; <b>PIM</b> = modificado (el "real" del año); Devengado = lo efectivamente gastado. % ejecución = devengado/PIM.</td><td>MEF · SIAF (pliego 514)</td><td><span class="tag real">real</span></td></tr>
+      <tr><td><b>Publicaciones por S/ millón</b></td><td>Eficiencia real: cuántos papers produce la UNI por cada millón de presupuesto.</td><td>OpenAlex ÷ MEF</td><td><span class="tag real">real</span></td></tr>
+      <tr><td><b>QS World</b></td><td>Ranking mundial QS (banda). La UNI entra y sale → muy volátil. Pesa reputación, citas/docente, internacionalización.</td><td>QS</td><td><span class="tag real">real</span></td></tr>
+      <tr><td><b>RENACYT</b></td><td>N° de investigadores calificados por CONCYTEC. Capital humano de investigación.</td><td>CONCYTEC</td><td><span class="tag real">real</span></td></tr>
+      <tr><td><b>Docentes / % posgrado</b></td><td>Plana docente y % con maestría/doctorado. Clave para QS (faculty) y para investigar.</td><td>SUNEDU</td><td><span class="tag real">real</span></td></tr>
+      <tr><td><b>Índices 0–100 (Seguridad, Educación, etc.)</b></td><td>Puntajes del simulador para demostrar el modelo. <b>No son mediciones reales</b> todavía.</td><td>Modelo INTI</td><td><span class="tag ilus">ilustrativo</span></td></tr>
+      <tr><td><b>Posiciones de ranking proyectadas</b></td><td>Estimación del modelo según tu inversión. Es una simulación, no una promesa.</td><td>Modelo</td><td><span class="tag ilus">ilustrativo</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>3. ¿Qué mide el ShanghaiRanking (ARWU)?</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Indicador</th><th>Qué premia</th><th>Peso</th></tr></thead>
+      <tbody>
+        <tr><td>PUB</td><td>Artículos en Web of Science (SCIE/SSCI)</td><td>20%</td></tr>
+        <tr><td>HiCi</td><td>Investigadores Altamente Citados</td><td>20%</td></tr>
+        <tr><td>N&amp;S</td><td>Papers en <i>Nature</i> y <i>Science</i></td><td>20%</td></tr>
+        <tr><td>Award</td><td>Personal con Nobel / Medalla Fields</td><td>20%</td></tr>
+        <tr><td>Alumni</td><td>Exalumnos con Nobel / Fields</td><td>10%</td></tr>
+        <tr><td>PCP</td><td>Desempeño per cápita</td><td>10%</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">Clave: <b>ARWU no mide infraestructura, marketing ni servicios</b>. Por eso construir edificios casi no mueve la aguja; lo que cuenta es publicar, ser citado y atraer/retener talento.</p>
+  </div>
+
+  <h2>4. 🎯 ¿Qué se necesita para llegar al TOP 100? (reality check)</h2>
+  <div class="box">
+    <p><b>Sí: S/ 15 millones no bastan.</b> Ni de cerca. Subir en rankings globales exige inversión <b>sostenida</b> en investigación durante <b>una década o más</b>, no un gasto único.</p>
+  </div>
+  <div class="card">
+    <h3>La escala real (para dimensionar)</h3>
+    <table>
+      <thead><tr><th>Institución</th><th>Publicaciones (OpenAlex)</th><th>Presupuesto anual aprox.</th><th>Dónde está</th></tr></thead>
+      <tbody>
+        <tr><td>Top-100 global típica (Harvard, MIT, Oxford…)</td><td>&gt; 100,000</td><td>USD 1,000–7,000 M</td><td>Top 100 mundial</td></tr>
+        <tr><td>USP (Brasil) — líder LatAm</td><td>~471,000</td><td>USD ~1,500 M</td><td>Top ~100–150 mundial</td></tr>
+        <tr><td>UNAM (México)</td><td>~248,000</td><td>USD ~3,000 M*</td><td>Top LatAm</td></tr>
+        <tr><td><b>UNI</b></td><td><b>~4,700</b></td><td><b>~USD 100 M (S/ 370 M)</b></td><td>Top nacional en ingeniería</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">*Presupuesto total institucional, no solo investigación. Cifras de escala, referenciales.</p>
+    <h3>Lectura honesta</h3>
+    <ul>
+      <li>El <b>top-100 GLOBAL</b> está dominado por universidades con <b>10–20× más presupuesto</b> y <b>20–100× más publicaciones</b> que la UNI. No es una meta realista a 5–10 años.</li>
+      <li>Incluso los líderes de la región (USP, UNAM) rara vez entran al top-100 global pese a presupuestos de miles de millones.</li>
+    </ul>
+    <h3>Metas realistas por horizonte (escalonadas)</h3>
+    <table>
+      <thead><tr><th>Horizonte</th><th>Meta realista</th><th>Inversión incremental en investigación (orden)</th></tr></thead>
+      <tbody>
+        <tr><td>5 años</td><td>Duplicar publicaciones (~9k), +RENACYT, estabilizar presencia en QS World, aparecer en GRAS por materia (ingeniería)</td><td>~S/ 50–80 M/año adicionales</td></tr>
+        <tr><td>10 años</td><td>Liderazgo nacional + top LatAm en ingeniería; GRAS subject top ~200–300</td><td>~S/ 100–150 M/año adicionales sostenidos</td></tr>
+        <tr><td>20–30 años</td><td>Acercarse al top mundial por materia; (top-100 global = objetivo generacional, política de Estado)</td><td>Inversión nacional sostenida, escala de miles de millones acumulados</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">Cifras de inversión = <b>estimaciones de orden de magnitud</b> para conversar, no presupuestos exactos. Se afinan con elasticidades reales (inversión → publicaciones) calibradas con series históricas.</p>
+  </div>
+
+  <h2>5. ¿Por qué el tema presupuestal es necesario?</h2>
+  <div class="card">
+    <p>Porque sin cruzar <b>presupuesto → resultado</b> la discusión es política. Con el dato real del MEF (PIM S/ 370 M) y las publicaciones reales (OpenAlex), podemos medir <b>eficiencia (publicaciones por sol)</b> y mostrar que <b>reasignar</b> hacia investigación rinde mucho más que gastar en partidas de bajo impacto académico. Ese es el corazón del "Waze institucional".</p>
+  </div>
+
+  <footer>
+    <p>📊 Datos reales: OpenAlex · MEF/SIAF · QS · CONCYTEC · SUNEDU (con fuente y año). Estimaciones marcadas como tal.</p>
+    <p style="margin-top:8px">Creado por <b><a href="https://unimauro.github.io/">Carlos Cárdenas Fernández</a></b> — <a href="https://github.com/unimauro">unimauro</a> · <a href="index.html">Volver al tablero</a></p>
+  </footer>
+</div>
+<script>
+function applyT(t){document.body.dataset.theme=t;var b=document.getElementById('tb');if(b)b.textContent=t==='light'?'🌙 Noche':'☀️ Día';}
+function tt(){var t=document.body.dataset.theme==='light'?'dark':'light';applyT(t);try{localStorage.setItem('uni_theme',t);}catch(e){}}
+(function(){var t='dark';try{t=localStorage.getItem('uni_theme')||'dark';}catch(e){}applyT(t);})();
+</script>
+</body>
+</html>
