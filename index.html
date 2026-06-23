@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XR7JSX20MP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XR7JSX20MP');</script>
 <title>Gemelo Digital de la UNI — Impacto Académico por Sol Invertido</title>
 <meta name="description" content="Simulador y gemelo digital de la Universidad Nacional de Ingeniería (UNI): mide el impacto académico por sol invertido y proyecta cómo cada decisión mueve a la UNI en los rankings. Demostración con datos ilustrativos.">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -12,6 +15,16 @@
 <meta property="og:title" content="Gemelo Digital de la UNI — Impacto por Sol Invertido">
 <meta property="og:description" content="¿Qué decisiones suben a la UNI en los rankings por cada sol invertido? Simulador institucional.">
 <meta property="og:url" content="https://unimauro.github.io/gemelo-digital-uni/">
+<meta property="og:image" content="https://unimauro.github.io/gemelo-digital-uni/og-image.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gemelo Digital de la UNI">
+<meta name="twitter:description" content="¿Qué decisiones suben a la UNI en los rankings por cada sol invertido?">
+<meta name="twitter:image" content="https://unimauro.github.io/gemelo-digital-uni/og-image.jpg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#c1121f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -68,10 +81,36 @@
   .waze{background:linear-gradient(135deg,rgba(193,18,31,.12),rgba(59,130,246,.08));border:1px solid rgba(193,18,31,.3);border-radius:16px;padding:20px;}
   .waze b{color:var(--gold);}
   footer{border-top:1px solid var(--line);margin-top:46px;padding:24px 0 50px;color:var(--muted2);font-size:.82rem;text-align:center;}
+  /* Tema claro (día) */
+  body[data-theme="light"]{--bg:#f3f5fa;--bg2:#ffffff;--card:#ffffff;--card2:#eef1f8;--line:#dfe4ee;--txt:#18202f;--muted:#5b6680;--muted2:#8a95ab;}
+  /* Navbar */
+  .nav{position:sticky;top:0;z-index:30;background:rgba(12,15,23,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  body[data-theme="light"] .nav{background:rgba(255,255,255,.92);}
+  .nav .in{display:flex;gap:8px;align-items:center;max-width:1180px;margin:0 auto;padding:9px 18px;overflow-x:auto;scrollbar-width:none;}
+  .nav .in::-webkit-scrollbar{display:none;}
+  .nav .brand{font-weight:900;color:var(--uni2);white-space:nowrap;margin-right:6px;}
+  .nav a.chip{flex-shrink:0;white-space:nowrap;color:var(--muted);font-weight:600;font-size:.85rem;padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);text-decoration:none;}
+  .nav a.chip:hover{color:var(--txt);border-color:var(--uni2);}
+  .nav .sp{margin-left:auto;}
+  .nav button.tbtn{background:var(--card);border:1px solid var(--line);color:var(--txt);border-radius:999px;padding:6px 12px;cursor:pointer;font-family:inherit;font-weight:700;font-size:.85rem;white-space:nowrap;flex-shrink:0;}
+  .nav button.tbtn:hover{border-color:var(--uni2);}
+  section{scroll-margin-top:60px;}
   @media(max-width:600px){ .v{font-size:1.5rem;} }
 </style>
 </head>
 <body>
+<nav class="nav"><div class="in">
+  <span class="brand">🎓 UNI</span>
+  <a class="chip" href="#resumen">Resumen</a>
+  <a class="chip" href="#sim">Simulador</a>
+  <a class="chip" href="#real">Datos reales</a>
+  <a class="chip" href="#comp">Comparaciones</a>
+  <a class="chip" href="#arwu">Ranking</a>
+  <a class="chip" href="#kpi-final">¿Cómo ayuda?</a>
+  <span class="sp"></span>
+  <button class="tbtn" id="themeBtn" onclick="toggleTheme()">☀️ Día</button>
+  <button class="tbtn" onclick="compartir(this)">🔗 Compartir</button>
+</div></nav>
 <header class="top">
   <div class="wrap">
     <span class="badge-uni">UNI</span>
@@ -84,12 +123,12 @@
 <div class="wrap">
 
   <!-- KPI -->
-  <section>
+  <section id="resumen">
     <div class="grid g4" id="kpis"></div>
   </section>
 
   <!-- SIMULADOR / GEMELO DIGITAL -->
-  <section>
+  <section id="sim">
     <div class="sec-h"><span class="ico">🧪</span><h2>Simulador — Gemelo Digital de la UNI</h2></div>
     <p class="sec-desc">Distribuye una inversión adicional entre actividades y observa el impacto proyectado en publicaciones, citaciones, docentes con PhD y posiciones de ranking. Coeficientes transparentes y ajustables (ilustrativos).</p>
     <div class="presets">
@@ -128,6 +167,17 @@
     <p class="sec-desc" id="realGap" style="margin-top:10px"></p>
   </section>
 
+  <!-- COMPARACIONES -->
+  <section id="comp">
+    <div class="sec-h"><span class="ico">📈</span><h2>Comparaciones y series por año</h2></div>
+    <p class="sec-desc">Evolución temporal y brechas reales (OpenAlex).</p>
+    <div class="grid g2">
+      <div class="card"><h3 style="font-size:1rem;margin-bottom:8px">Citaciones por año — UNI</h3><div class="chartbox"><canvas id="citChart"></canvas></div></div>
+      <div class="card"><h3 style="font-size:1rem;margin-bottom:8px">Publicaciones por año — UNI vs San Marcos vs PUCP</h3><div class="chartbox"><canvas id="multiChart"></canvas></div></div>
+    </div>
+    <div class="card" style="margin-top:14px"><h3 style="font-size:1rem;margin-bottom:8px">h-index — UNI vs pares</h3><div class="chartbox"><canvas id="hChart"></canvas></div></div>
+  </section>
+
   <!-- TABLA INVERSIÓN -> IMPACTO -->
   <section>
     <div class="sec-h"><span class="ico">💡</span><h2>Inversión → Impacto académico (S/ 20M, ilustrativo)</h2></div>
@@ -147,7 +197,7 @@
   </section>
 
   <!-- INDICADORES ARWU / SHANGHAI -->
-  <section>
+  <section id="arwu">
     <div class="sec-h"><span class="ico">📐</span><h2>Marco: ShanghaiRanking (ARWU) — el ranking que más pesa</h2></div>
     <p class="sec-desc">El <b>Academic Ranking of World Universities (ARWU)</b> es <b>100% académico y de investigación</b>: ni siquiera mide infraestructura, reputación encuestada ni servicios. Esto confirma la tesis — para subir, la UNI debe invertir en <b>publicaciones, investigadores altamente citados, papers de alto impacto y talento doctoral</b>.</p>
     <div class="grid g2">
@@ -177,7 +227,7 @@
   </section>
 
   <!-- WAZE -->
-  <section>
+  <section id="kpi-final">
     <div class="sec-h"><span class="ico">🧭</span><h2>El KPI más importante</h2></div>
     <div class="waze">
       Un tablero con una sola pregunta: <b>¿qué actividades generan mayor impacto académico y científico por cada sol invertido?</b>
@@ -307,6 +357,13 @@ function renderReal(DR){
     _card('Citaciones (total)', fmtN(u.cited), 'acumuladas')+
     _card('h-index', fmtN(u.h_index), 'i10: '+fmtN(u.i10))+
     _card('Publicaciones último año', last?fmtN(last.works):'—', last?('año '+last.year):'');
+  const PR=DR.presupuesto;
+  if(PR){
+    const ppm = last ? (last.works/PR.pim).toFixed(2) : '—';
+    el('realKpis').innerHTML +=
+      _card('Presupuesto '+PR.anio+' (MEF)', 'S/ '+PR.pim+'M', 'PIM · pliego 514 · devengado S/ '+PR.dev+'M ('+PR.ejec_pct+'%)')+
+      _card('Publicaciones por S/ millón', ppm, 'eficiencia real (papers '+(last?last.year:'')+'/ PIM)');
+  }
   if(last){ BASE.pubs=last.works; BASE.cit=last.cited; } if(u.h_index) BASE.h=u.h_index; calc();
   _mk('pubChart','line',{labels:by.map(x=>x.year),datasets:[{label:'Publicaciones',data:by.map(x=>x.works),borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.15)',fill:true,tension:.3}]},
     {plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
@@ -318,7 +375,27 @@ function renderReal(DR){
   const sm=DR.sanmarcos, usp=DR.usp;
   if(sm&&usp) el('realGap').innerHTML=`📉 La UNI tiene <b>${fmtN(u.works)}</b> publicaciones; San Marcos <b>${fmtN(sm.works)}</b> y la USP (Brasil) <b>${fmtN(usp.works)}</b>. La brecha para subir en ARWU es de <b>investigación y publicaciones</b>, no de infraestructura.`;
 }
-fetch('data/datos-uni.json').then(r=>r.json()).then(renderReal).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
+function renderComp(DR){
+  const u=DR.uni; if(!u) return;
+  _mk('citChart','line',{labels:(u.by_year||[]).map(x=>x.year),datasets:[{label:'Citaciones',data:(u.by_year||[]).map(x=>x.cited),borderColor:'#a855f7',backgroundColor:'rgba(168,85,247,.15)',fill:true,tension:.3}]},{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
+  const set=['uni','sanmarcos','pucp'].filter(k=>DR[k]);
+  const yrs=[...new Set(set.flatMap(k=>(DR[k].by_year||[]).map(x=>x.year)))].sort();
+  const col={uni:'#e63946',sanmarcos:'#3b82f6',pucp:'#22c55e'};
+  const ds=set.map(k=>{const m={};(DR[k].by_year||[]).forEach(x=>m[x.year]=x.works);return {label:_short(k),data:yrs.map(y=>(y in m)?m[y]:null),borderColor:col[k],backgroundColor:'transparent',tension:.3,spanGaps:true};});
+  _mk('multiChart','line',{labels:yrs,datasets:ds},{plugins:{legend:{labels:{color:'#94a0c0',boxWidth:12}}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
+  const order=['uni','sanmarcos','pucp','cayetano','uchile','unam','usp'].filter(k=>DR[k]);
+  _mk('hChart','bar',{labels:order.map(_short),datasets:[{label:'h-index',data:order.map(k=>DR[k].h_index),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#f4b740')}]},{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
+}
+fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{renderReal(d);renderComp(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
+
+/* Tema día/noche + compartir */
+function applyTheme(t){ document.body.dataset.theme=t; const b=el('themeBtn'); if(b) b.textContent = t==='light'?'🌙 Noche':'☀️ Día'; }
+function toggleTheme(){ const t=document.body.dataset.theme==='light'?'dark':'light'; applyTheme(t); try{localStorage.setItem('uni_theme',t);}catch(e){} }
+(function(){ let t='dark'; try{t=localStorage.getItem('uni_theme')||'dark';}catch(e){} applyTheme(t); })();
+function compartir(btn){ const u=location.href.split('#')[0];
+  if(navigator.share){ navigator.share({title:'Gemelo Digital de la UNI',text:'¿Qué decisiones suben a la UNI en los rankings por cada sol invertido?',url:u}).catch(()=>{}); return; }
+  navigator.clipboard.writeText(u).then(()=>{ const o=btn.textContent; btn.textContent='✅ Copiado'; setTimeout(()=>btn.textContent=o,1600); }).catch(()=>{});
+}
 </script>
 </body>
 </html>
