@@ -28,6 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="config.js"></script>
 <style>
   :root{
     --bg:#0c0f17; --bg2:#121624; --card:#171c2e; --card2:#1d2440; --line:#2a3252;
@@ -502,12 +503,28 @@ function compartir(btn){ const u=location.href.split('#')[0];
 /* ===== Robot: conversar con los datos (heurístico, sobre datos reales) ===== */
 function botToggle(){ const p=el('botPanel'); p.classList.toggle('open');
   if(p.classList.contains('open') && !p._init){ p._init=1;
-    botSay('¡Hola! 🤖 Soy el asistente del Gemelo Digital de la UNI. Pregúntame por <b>publicaciones, citaciones, h-index, presupuesto, ranking, RENACYT, docentes</b>, una <b>comparación</b> con otras universidades, o <b>qué conviene invertir</b> para subir.'); botChips(); } }
+    botSay('¡Hola! 🤖 Soy el asistente del Gemelo Digital de la UNI'+(window.UNI_IA&&window.UNI_IA.apiKey?' (con IA)':'')+'. Pregúntame por <b>publicaciones, citaciones, h-index, presupuesto, ranking, RENACYT, docentes</b>, una <b>comparación</b> con otras universidades, o <b>qué conviene invertir</b> para subir.'); botChips(); } }
 function botSay(html,who){ const d=document.createElement('div'); d.className='m '+(who==='me'?'me':'bot'); d.innerHTML=html; el('botMsgs').appendChild(d); el('botMsgs').scrollTop=1e9; }
 function botChips(){ const qs=['¿Cuántas publicaciones tiene?','¿Cuál es el presupuesto?','¿En qué ranking está?','Compárala con San Marcos','¿Qué conviene invertir?','¿Cuántos RENACYT?'];
   el('botChips').innerHTML=qs.map(q=>'<button onclick="botAsk(this.textContent)">'+q+'</button>').join(''); }
 function botAsk(q){ el('botIn').value=q; botSend(); }
-function botSend(){ const i=el('botIn'); const q=(i.value||'').trim(); if(!q) return; botSay(q,'me'); i.value=''; setTimeout(()=>botSay(botAnswer(q)),200); }
+async function botSend(){ const i=el('botIn'); const q=(i.value||'').trim(); if(!q) return; botSay(q,'me'); i.value='';
+  const cfg=window.UNI_IA||{};
+  if(cfg.apiKey||cfg.proxy){ botSay('… <i>pensando</i>',''); const node=el('botMsgs').lastChild;
+    try{ node.innerHTML=await botLLM(q); }catch(e){ node.innerHTML=botAnswer(q); } el('botMsgs').scrollTop=1e9; }
+  else { setTimeout(()=>botSay(botAnswer(q)),200); } }
+function mdmini(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); }
+async function botLLM(q){
+  const cfg=window.UNI_IA||{}, D=window.DR||{}, u=D.uni||{},P=D.presupuesto||{},r=D.renacyt||{},dc=D.docentes||{},qs=(D.qs&&D.qs.world)||[];
+  const ctx='Datos REALES de la UNI (Universidad Nacional de Ingenieria, Peru): publicaciones '+u.works+', citaciones '+u.cited+', h-index '+u.h_index+', presupuesto 2025 PIM S/'+P.pim+'M (devengado S/'+P.dev+'M, '+P.ejec_pct+'% ejecucion), investigadores RENACYT '+(r.valor)+' ('+r.anio+'), docentes '+dc.total+' ('+dc.posgrado_pct+'% con posgrado, '+dc.anio+'), QS World 2024 banda '+((qs.find(x=>x.anio===2024)||{}).banda||'951-1000')+'. Pares por publicaciones: San Marcos '+(D.sanmarcos&&D.sanmarcos.works)+', PUCP '+(D.pucp&&D.pucp.works)+', USP-Brasil '+(D.usp&&D.usp.works)+', UNAM '+(D.unam&&D.unam.works)+', UBA '+(D.uba&&D.uba.works)+'. El ShanghaiRanking/ARWU es 100% investigacion (no mide infraestructura). Para subir conviene invertir en becas doctorales, fondos de investigacion, convenios internacionales y HiCi; no en edificios.';
+  const url=cfg.proxy||cfg.endpoint, headers={'Content-Type':'application/json'};
+  if(!cfg.proxy&&cfg.apiKey) headers['Authorization']='Bearer '+cfg.apiKey;
+  const res=await fetch(url,{method:'POST',headers,body:JSON.stringify({model:cfg.model,messages:[
+    {role:'system',content:'Eres el asistente del Gemelo Digital de la UNI. Responde en espanol, breve y directo, usando SOLO los datos provistos; si falta el dato, dilo. Tono honesto y realista; recuerda que el reto de la UNI es investigacion, doctorado y talento, no infraestructura.'},
+    {role:'user',content:ctx+'\n\nPregunta: '+q}]})});
+  const j=await res.json();
+  return mdmini((j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||(j.error&&j.error.message)||'Sin respuesta.');
+}
 function botAnswer(qr){
   const D=window.DR||{}, u=D.uni||{}, by=u.by_year||[], last=by.length?by[by.length-1]:null;
   const q=qr.toLowerCase(), f=n=>(n==null)?'—':Number(n).toLocaleString('es-PE');
