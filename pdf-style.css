@@ -1,0 +1,8 @@
+@page{ size:A4; margin:1.8cm 1.8cm; }
+body{ font-family:-apple-system,"Helvetica Neue",Arial,sans-serif; font-size:10.5pt; line-height:1.5; color:#1a2030; }
+h1{ color:#c1121f; font-size:19pt; border-bottom:3px solid #f4b740; padding-bottom:6px; }
+h2{ color:#0c0f17; font-size:13pt; border-left:4px solid #c1121f; padding-left:8px; margin-top:18px; }
+h3{ color:#8a6d1f; font-size:11pt; margin-top:10px; }
+blockquote{ background:#fbf3f3; border-left:3px solid #c1121f; padding:8px 12px; color:#555; font-size:9.5pt; }
+strong{ color:#0c0f17; } a{ color:#c1121f; }
+ul,ol{ margin:6px 0 6px 18px; } hr{ border:none;border-top:1px solid #e5dfd0; margin:14px 0; }
