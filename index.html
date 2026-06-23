@@ -364,6 +364,12 @@ function renderReal(DR){
       _card('Presupuesto '+PR.anio+' (MEF)', 'S/ '+PR.pim+'M', 'PIM · pliego 514 · devengado S/ '+PR.dev+'M ('+PR.ejec_pct+'%)')+
       _card('Publicaciones por S/ millón', ppm, 'eficiencia real (papers '+(last?last.year:'')+'/ PIM)');
   }
+  const QS=DR.qs, RN=DR.renacyt, DOC=DR.docentes;
+  let _ex2='';
+  if(QS&&QS.world){ const q=QS.world.find(x=>x.anio===2024)||QS.world[0]; _ex2+=_card('QS World '+q.anio, q.banda, 'banda · entra/sale (volátil)'); }
+  if(RN){ _ex2+=_card('Investigadores RENACYT', fmtN(RN.valor), 'año '+RN.anio+' · CONCYTEC'); }
+  if(DOC){ _ex2+=_card('Docentes', fmtN(DOC.total), DOC.posgrado_pct+'% con posgrado ('+DOC.anio+', SUNEDU)'); }
+  el('realKpis').innerHTML += _ex2;
   if(last){ BASE.pubs=last.works; BASE.cit=last.cited; } if(u.h_index) BASE.h=u.h_index; calc();
   _mk('pubChart','line',{labels:by.map(x=>x.year),datasets:[{label:'Publicaciones',data:by.map(x=>x.works),borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.15)',fill:true,tension:.3}]},
     {plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
