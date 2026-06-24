@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://unimauro.github.io/gemelo-digital-uni/sitemap.xml

@@ -25,10 +25,30 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#c1121f">
+<meta name="author" content="Carlos Cárdenas Fernández">
+<meta name="keywords" content="UNI, Universidad Nacional de Ingeniería, ranking universitario, ShanghaiRanking, ARWU, QS, bibliometría, OpenAlex, investigación, I+D, Perú, educación superior, gemelo digital, datos abiertos, MEF, RENACYT">
+<meta property="og:site_name" content="Hacia el Gemelo Digital de la UNI">
+<meta property="og:locale" content="es_PE">
+<meta property="og:image:alt" content="Observatorio y simulador de impacto de la Universidad Nacional de Ingeniería">
+<meta name="twitter:image:alt" content="Observatorio y simulador de impacto de la UNI">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://api.openalex.org">
+<link rel="dns-prefetch" href="https://ai.tunky.net">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="config.js"></script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"WebSite","@id":"https://unimauro.github.io/gemelo-digital-uni/#website","url":"https://unimauro.github.io/gemelo-digital-uni/","name":"Hacia el Gemelo Digital de la UNI","description":"Observatorio y simulador de impacto académico por sol invertido de la Universidad Nacional de Ingeniería (UNI).","inLanguage":"es-PE","author":{"@type":"Person","name":"Carlos Cárdenas Fernández","url":"https://unimauro.github.io/"}},
+    {"@type":"WebApplication","name":"Hacia el Gemelo Digital de la UNI","url":"https://unimauro.github.io/gemelo-digital-uni/","applicationCategory":"EducationApplication","operatingSystem":"Web","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"PEN"},"inLanguage":"es-PE","description":"Simulador de escenarios (digital twin) que proyecta cómo cada sol invertido mueve a la UNI en los rankings ShanghaiRanking/ARWU y QS, con datos reales de OpenAlex, MEF, QS, RENACYT y SUNEDU."},
+    {"@type":"Dataset","name":"Indicadores de la UNI y universidades de referencia","description":"Bibliometría (publicaciones, citaciones, h-index, acceso abierto) de la UNI y 13 universidades de referencia de Perú y Latinoamérica, más presupuesto MEF/SIAF (pliego 514), inversión en I+D, QS World, RENACYT y docentes SUNEDU.","license":"https://creativecommons.org/publicdomain/zero/1.0/","creator":{"@type":"Person","name":"Carlos Cárdenas Fernández"},"isBasedOn":["https://openalex.org/","https://www.datosabiertos.gob.pe/"],"temporalCoverage":"2012/2026","keywords":["bibliometría","ranking universitario","UNI","Perú","I+D"],"distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://unimauro.github.io/gemelo-digital-uni/data/datos-uni.json"},"about":{"@type":"CollegeOrUniversity","name":"Universidad Nacional de Ingeniería","alternateName":"UNI","sameAs":"https://openalex.org/I62520931","address":{"@type":"PostalAddress","addressCountry":"PE","addressLocality":"Lima"}}}
+  ]
+}
+</script>
 <style>
   :root{
     --bg:#0c0f17; --bg2:#121624; --card:#171c2e; --card2:#1d2440; --line:#2a3252;
@@ -471,7 +491,7 @@ preset('C'); // arranca con el escenario de mayor impacto
 
 /* ===== Datos reales (OpenAlex) ===== */
 function _card(k,v,d){return `<div class="card stat"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d||''}</div></div>`;}
-function _short(k){const m={uni:'UNI',sanmarcos:'San Marcos',pucp:'PUCP',cayetano:'Cayetano H.',uchile:'U. Chile',unam:'UNAM',usp:'USP',uba:'UBA',unal:'UNAL'};return m[k]||k;}
+function _short(k){const m={uni:'UNI',sanmarcos:'San Marcos',pucp:'PUCP',cayetano:'Cayetano H.',uchile:'U. Chile',unam:'UNAM',usp:'USP',uba:'UBA',unal:'UNAL',unalm:'UNALM',upc:'UPC',tecmty:'Tec Monterrey',puccl:'PUC Chile',andesco:'U. Andes CO'};return m[k]||k;}
 function _mk(id,type,data,opts){ if(window['_c_'+id])window['_c_'+id].destroy(); window['_c_'+id]=new Chart(el(id),{type,data,options:Object.assign({responsive:true,maintainAspectRatio:false},opts)});}
 function fmtN(n){return (n==null)?'—':Number(n).toLocaleString('es-PE');}
 function renderReal(DR){
@@ -495,11 +515,13 @@ function renderReal(DR){
   if(QS&&QS.world){ const q=QS.world.find(x=>x.anio===2024)||QS.world[0]; _ex2+=_card('QS World '+q.anio, q.banda, 'banda · entra/sale (volátil)'); }
   if(RN){ _ex2+=_card('Investigadores RENACYT', fmtN(RN.valor), 'año '+RN.anio+' · CONCYTEC'); }
   if(DOC){ _ex2+=_card('Docentes', fmtN(DOC.total), DOC.posgrado_pct+'% con posgrado ('+DOC.anio+', SUNEDU)'); }
+  if(u.oa_pct){ _ex2+=_card('Acceso abierto', u.oa_pct+'%', 'de las publicaciones son open access (OpenAlex)'); }
+  if(u.mean_citedness){ _ex2+=_card('Citas / publicación (2 años)', u.mean_citedness, 'impacto reciente promedio'); }
   el('realKpis').innerHTML += _ex2;
   if(last){ BASE.pubs=last.works; BASE.cit=last.cited; } if(u.h_index) BASE.h=u.h_index; calc();
   _mk('pubChart','line',{labels:by.map(x=>x.year),datasets:[{label:'Publicaciones',data:by.map(x=>x.works),borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.15)',fill:true,tension:.3}]},
     {plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
-  const order=['uni','sanmarcos','pucp','cayetano','unal','uba','uchile','unam','usp'].filter(k=>DR[k]);
+  const order=['uni','unalm','upc','sanmarcos','pucp','cayetano','andesco','unal','puccl','uchile','tecmty','uba','unam','usp'].filter(k=>DR[k]);
   _mk('cmpChart','bar',{labels:order.map(k=>_short(k).toUpperCase()),datasets:[{label:'Publicaciones',data:order.map(k=>DR[k].works),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#3b82f6')}]},
     {plugins:{legend:{display:false}},scales:{y:{type:'logarithmic',grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
   el('realAreas').innerHTML=(u.concepts||[]).map(c=>`<span class="pill p-medio" style="margin:3px;display:inline-block">${c.t}</span>`).join(' ')||'—';
@@ -507,7 +529,7 @@ function renderReal(DR){
   const sm=DR.sanmarcos, usp=DR.usp;
   if(sm&&usp) el('realGap').innerHTML=`📉 La UNI tiene <b>${fmtN(u.works)}</b> publicaciones; San Marcos <b>${fmtN(sm.works)}</b> y la USP (Brasil) <b>${fmtN(usp.works)}</b>. La brecha para subir en ARWU es de <b>investigación y publicaciones</b>, no de infraestructura.`;
 }
-const UMETA={uni:['🇵🇪','Pública','UNI'],sanmarcos:['🇵🇪','Pública','UNMSM (San Marcos)'],pucp:['🇵🇪','Privada','PUCP'],cayetano:['🇵🇪','Privada','Cayetano Heredia'],uchile:['🇨🇱','Pública','U. de Chile'],unam:['🇲🇽','Pública','UNAM'],usp:['🇧🇷','Pública','USP'],uba:['🇦🇷','Pública','UBA'],unal:['🇨🇴','Pública','U. Nacional Colombia']};
+const UMETA={uni:['🇵🇪','Pública','UNI'],sanmarcos:['🇵🇪','Pública','UNMSM (San Marcos)'],pucp:['🇵🇪','Privada','PUCP'],cayetano:['🇵🇪','Privada','Cayetano Heredia'],uchile:['🇨🇱','Pública','U. de Chile'],unam:['🇲🇽','Pública','UNAM'],usp:['🇧🇷','Pública','USP'],uba:['🇦🇷','Pública','UBA'],unal:['🇨🇴','Pública','U. Nacional Colombia'],unalm:['🇵🇪','Pública','UNALM (La Molina)'],upc:['🇵🇪','Privada','UPC'],tecmty:['🇲🇽','Privada','Tec de Monterrey'],puccl:['🇨🇱','Privada','PUC Chile'],andesco:['🇨🇴','Privada','U. de los Andes (CO)']};
 function renderTabla(DR){
   const ks=Object.keys(UMETA).filter(k=>DR[k]); ks.sort((a,b)=>(DR[b].works||0)-(DR[a].works||0));
   const rows=ks.map(k=>{const x=DR[k],m=UMETA[k];const hi=k==='uni'?' style="background:rgba(193,18,31,.12)"':'';
@@ -523,7 +545,7 @@ function renderComp(DR){
   const col={uni:'#e63946',sanmarcos:'#3b82f6',pucp:'#22c55e'};
   const ds=set.map(k=>{const m={};(DR[k].by_year||[]).forEach(x=>m[x.year]=x.works);return {label:_short(k),data:yrs.map(y=>(y in m)?m[y]:null),borderColor:col[k],backgroundColor:'transparent',tension:.3,spanGaps:true};});
   _mk('multiChart','line',{labels:yrs,datasets:ds},{plugins:{legend:{labels:{color:'#94a0c0',boxWidth:12}}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0'}}}});
-  const order=['uni','sanmarcos','pucp','cayetano','unal','uba','uchile','unam','usp'].filter(k=>DR[k]);
+  const order=['uni','unalm','upc','sanmarcos','pucp','cayetano','andesco','unal','puccl','uchile','tecmty','uba','unam','usp'].filter(k=>DR[k]);
   _mk('hChart','bar',{labels:order.map(k=>_short(k).toUpperCase()),datasets:[{label:'h-index',data:order.map(k=>DR[k].h_index),backgroundColor:order.map(k=>k==='uni'?'#e63946':'#f4b740')}]},{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#2a3252'},ticks:{color:'#94a0c0'}},x:{grid:{display:false},ticks:{color:'#94a0c0',font:{size:10}}}}});
 }
 fetch('data/datos-uni.json').then(r=>r.json()).then(d=>{window.DR=d;renderReal(d);renderComp(d);renderTabla(d);realityFill(d);renderCritico(d);renderPercapita(d);}).catch(e=>{ var g=el('realGap'); if(g) g.textContent='(No se pudieron cargar los datos reales.)'; });
